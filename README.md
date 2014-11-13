@@ -3,7 +3,7 @@ Perl6 One Liners
 
 This file is a work in progress, converting Perl5 one liners to Perl6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
 
-You can test the one liners on the accompanying "example.txt" file included in this repo.
+You can test the one liners on the accompanying `example.txt` file included in this repo.
 
 
 AUTHOR
