@@ -42,8 +42,8 @@ CONTENTS
 2. Line Numbering (done)
 3. Calculations (not started)
 4. String Creation and Array Creation (done)
-5. Text Conversion and Substitution (not started)
-6. Selective Printing and Deleting of Certain Lines (done)
+5. Text Conversion and Substitution (in progress)
+6. Selective Printing and Deleting of Certain Lines (in progress)
 
 
 FILE SPACING
