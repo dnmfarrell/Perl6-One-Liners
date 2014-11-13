@@ -272,13 +272,13 @@ Convert a decimal number to hex using @hex lookup table
     perl -le '$hex = sprintf("%x", 255); print $hex'
     perl -le '$num = "ff"; print hex $num'
 
-Generate a random 10 a-z character password
+Generate a random 10 a-z character string
 
-    perl6 -e 'print ("a".."z").roll(10)'
+    perl6 -e 'print roll 10, "a".."z"'
 
 Generate a random 15 ASCII Character password
 
-    perl6 -e 'print ("0".."z").roll(15)'
+    perl6 -e 'print roll 15, "0".."z"'
 
 Create a string of specific length
 
