@@ -1,7 +1,7 @@
-Perl6 One Liners
-================
+Perl 6 One Liners
+=================
 
-This file is a work in progress, converting Perl5 one liners to Perl6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
+This file is a work in progress, converting Perl 5 one liners to Perl 6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
 
 You can test the one liners on the accompanying `example.txt` file included in this repo.
 
@@ -47,7 +47,7 @@ CONTENTS
 
 1. [File Spacing](#file-spacing)
 2. [Line Numbering](#line-numbering)
-3. [Calculations](#calculation) (in progress)
+3. [Calculations](#calculations) (in progress)
 4. [String Creation and Array Creation](#string-creation-and-array-creation)
 5. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
 6. [Selective Line Printing](#selective-line-printing) (in progress)
