@@ -45,13 +45,13 @@ The wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&n
 CONTENTS
 --------
 
-1. [File Spacing](#file-spacing) (done)
-2. Line Numbering (done)
-3. Calculations (not started)
-4. String Creation and Array Creation (done)
-5. Text Conversion and Substitution (in progress)
-6. Selective Printing and Deleting of Certain Lines (in progress)
-7. Converting for Windows (in progress)
+1. [File Spacing](#file-spacing)
+2. [Line Numbering](#line-numbering)
+3. [Calculations](#calculation) (in progress)
+4. [String Creation and Array Creation](#string-creation-and-array-creation)
+5. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
+6. [Selective Line Printing](#selective-line-printing) (in progress)
+7. [Converting for Windows](#converting-for-windows) (in progress)
 
 
 FILE SPACING
@@ -394,8 +394,8 @@ Find and replace all instances of "ut" with "foo" on each line that contains "lo
     perl6 -ne '.subst(/ut/, q/foo/).say if /Lorem/' example.txt
 
 
-SELECTIVE PRINTING AND DELETING OF CERTAIN LINES
-------------------------------------------------
+SELECTIVE LINE PRINTING
+-----------------------
 
 Print the first line of a file (emulate head -1)
 
