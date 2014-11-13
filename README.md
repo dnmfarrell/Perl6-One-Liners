@@ -1,7 +1,13 @@
 Perl6 One Liners
 ================
 
-THIS FILE IS AN UNFINISHED DRAFT. HELP CONVERT IT FROM PERL5 TO PERL6, PULL REQUESTS WELCOME!!
+This file is a work in progress, converting Perl5 one liners to Perl6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
+
+
+AUTHOR
+------
+
+David Farrell [PerlTricks.com](http://perltricks.com)
 
 
 VERSION
@@ -10,17 +16,32 @@ VERSION
 Version 0.01
 
 
+LICENSE
+-------
+
+FreeBSD - see LICENSE
+
+
+THANKS
+------
+
+Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl one liners.
+
+These wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
+
+* timotimo
+* FROGGS
+
+
 CONTENTS
 --------
 
-    1. File Spacing
-    2. Line Numbering
-    3. Calculations
-    4. String Creation and Array Creation
-    5. Text Conversion and Substitution
-    6. Selective Printing and Deleting of Certain Lines
-    7. Thanks
-    8. License
+1. File Spacing (done)
+2. Line Numbering (done)
+3. Calculations (not started)
+4. String Creation and Array Creation (done)
+5. Text Conversion and Substitution (in progress)
+6. Selective Printing and Deleting of Certain Lines
 
 
 FILE SPACING
@@ -28,41 +49,24 @@ FILE SPACING
 
 Double space a file
 
-    perl6 -ne 'say $_' /path/to/file
-    perl6 -ne '.say' /path/to/file
-
-Double space a file, except the blank lines
-
-    perl6 -ne '.say if .chars' /path/to/file
-
-Triple space a file
-
-    perl6 -ne 'say $_ ~ "\n"' /path/to/file
+    perl6 -pe '$_ ~= "\n"' example.txt
 
 N-space a file (e.g. quadruple space)
 
-    perl -pe 'say $_ ~ "\n" x 4' /path/to/file
+    perl6 -pe '$_ ~= "\n" x 4' example.txt
 
 Add a blank line before every line
 
-    perl -pe '"\n" ~ $_' /path/to/file
+    perl6 -pe 'say ""' example.txt
 
 Remove all blank lines
 
-    perl -ne '.print if .chars' /path/to/file
+    perl6 -ne '.print if /\S/' example.txt
+    perl6 -ne '.print if .chars' example.txt
 
 Remove all consecutive blank lines, leaving just one
 
-    perl -00 -pe ''
-    perl -00pe0
-
-Compress/expand all blank lines into N consecutive ones
-
-    perl -00 -pe '$_.="\n"x4'
-
-Fold a file so that every set of 10 lines becomes one tab-separated line
-
-    perl -lpe '$\ = $. % 10 ? "\t" : "\n"'
+    perl6 -e '$*ARGFILES.slurp.subst(/\n+/, "\n\n", :g).say' example.txt
 
 
 LINE NUMBERING
@@ -70,58 +74,30 @@ LINE NUMBERING
 
 Number all lines in a file
 
-    perl6 -pe '$_ = $*ARGFILES.ins ~ " $_"'
+    perl6 -ne 'print ++$a ~ " $_"'
+    perl6 -ne 'say $*ARGFILES.ins ~ " $_"'
 
 Number only non-empty lines in a file
 
-    perl -pe '$_ = ++$a." $_" if /./'
+    perl6 -pe '$_ = ++$a ~ " $_" if /\S/' example.txt
 
-Number and print only non-empty lines in a file (drop empty lines)
+Number all lines but print line numbers only for non-empty lines
 
-    perl -ne 'print ++$a." $_" if /./'
-
-Number all lines but print line numbers only non-empty lines
-
-    perl -pe '$_ = "$. $_" if /./'
-
-Number only lines that match a pattern, print others unmodified
-
-    perl -pe '$_ = ++$a." $_" if /regex/'
-
-Number and print only lines that match a pattern
-
-    perl -ne 'print ++$a." $_" if /regex/'
-
-Number all lines, but print line numbers only for lines that match a pattern
-
-    perl -pe '$_ = "$. $_" if /regex/'
-
-Number all lines in a file using a custom format (emulate cat -n)
-
-    perl -ne 'printf "%-5d %s", $., $_'
+    perl6 -pe '$_ = $*ARGFILES.ins ~ " $_" if /\S/' example.txt
 
 Print the total number of lines in a file (emulate wc -l)
 
-    perl6 -e 'say $*ARGFILES.lines.elems' /path/to/file
+    perl6 -e 'say $*ARGFILES.lines.elems' example.txt
+    perl6 -e 'say $*ARGFILES.lines.Int' example.txt
+    perl6 -e '$*ARGFILES.lines.Int.say' example.txt
 
 Print the number of non-empty lines in a file
 
-    perl -le 'print scalar(grep{/./}<>)'
-    perl -le 'print ~~grep{/./}<>'
-    perl -le 'print~~grep/./,<>'
-    perl -E 'say~~grep/./,<>'
+    perl6 -e '$*ARGFILES.lines.grep(/\S/).elems.say' example.txt
 
 Print the number of empty lines in a file
 
-    perl -lne '$a++ if /^$/; END {print $a+0}'
-    perl -le 'print scalar(grep{/^$/}<>)'
-    perl -le 'print ~~grep{/^$/}<>'
-    perl -E 'say~~grep{/^$/}<>'
-
-Print the number of lines in a file that match a pattern (emulate grep -c)
-
-    perl -lne '$a++ if /regex/; END {print $a+0}'
-    perl -nE '$a++ if /regex/; END {say $a+0}'
+    perl6 -e '$*ARGFILES.lines.grep(/\s/).elems.say' example.txt
 
 
 CALCULATIONS
@@ -282,18 +258,11 @@ STRING CREATION AND ARRAY CREATION
 
 Generate and print the alphabet
 
-    perl -le 'print a..z'
-    perl -le 'print ("a".."z")'
-    perl -le '$, = ","; print ("a".."z")'
-    perl -le 'print join ",", ("a".."z")'
+    perl6 -e 'print "a".."z"'
 
 Generate and print all the strings from "a" to "zz"
 
-    perl -le 'print ("a".."zz")'
-    perl -le 'print "aa".."zz"'
-
-Create a hex lookup table
-@hex = (0..9, "a".."f")
+    perl6 -e 'print "a".."zz"'
 
 Convert a decimal number to hex using @hex lookup table
 
@@ -301,45 +270,29 @@ Convert a decimal number to hex using @hex lookup table
     perl -le '$hex = sprintf("%x", 255); print $hex'
     perl -le '$num = "ff"; print hex $num'
 
-Generate a random 8 character password
+Generate a random 10 a-z character password
 
-    perl -le 'print map { ("a".."z")[rand 26] } 1..8'
-    perl -le 'print map { ("a".."z", 0..9)[rand 36] } 1..8'
+    perl6 -e 'print ("a".."z").roll(10)'
+
+Generate a random 15 ASCII Character password
+
+    perl6 -e 'print ("0".."z").roll(15)'
 
 Create a string of specific length
 
-    perl -le 'print "a"x50'
+    perl6 -e 'print "a" x 50'
 
-Create a repeated list of elements
+Generate and print an array of even numbers from 1 to 100
 
-    perl -le '@list = (1,2)x20; print "@list"'
-
-Find the numeric values for characters in the string
-
-    perl -le 'print join ", ", map { ord } split //, "hello world"'
-
-Convert a list of numeric ASCII values into a string
-
-    perl -le '@ascii = (99, 111, 100, 105, 110, 103); print pack("C*", @ascii)'
-    perl -le '@ascii = (99, 111, 100, 105, 110, 103); print map { chr } @ascii'
-
-Generate an array with odd numbers from 1 to 100
-
-    perl -le '@odd = grep {$_ % 2 == 1} 1..100; print "@odd"'
-    perl -le '@odd = grep { $_ & 1 } 1..100; print "@odd"'
-
-Generate an array with even numbers from 1 to 100
-
-    perl -le '@even = grep {$_ % 2 == 0} 1..100; print "@even"'
+    perl6 -e 'my @evens = grep { $_ % 2 == 0 }, 1..100; @evens.say'
 
 Find the length of the string
 
-    perl -le 'print length "one-liners are great"'
+    perl6 -e '"storm in a teacup".chars.say'
 
 Find the number of elements in an array
 
-    perl -le '@array = ("a".."z"); print scalar @array'
-    perl -le '@array = ("a".."z"); print $#array + 1'
+    perl6 -e 'my @letters = "a".."z"; @letters.Int.say'
 
 
 TEXT CONVERSION AND SUBSTITUTION
@@ -347,7 +300,7 @@ TEXT CONVERSION AND SUBSTITUTION
 
 ROT 13 a file
 
-    perl -lpe 'y/A-Za-z/N-ZA-Mn-za-m/' file
+    perl -lpe 'y/A-Za-z/N-ZA-Mn-za-m/' example.txt
 
 Base64 encode a string
 
@@ -448,50 +401,30 @@ SELECTIVE PRINTING AND DELETING OF CERTAIN LINES
 
 Print the first line of a file (emulate head -1)
 
-    perl -ne 'print; exit'
+    perl6 -ne '.say;exit' example.txt
+    perl6 -e '$*ARGFILES.lines[0].say' example.txt
+    perl6 -e '$*ARGFILES.lines.shift.say' example.txt
 
 Print the first 10 lines of a file (emulate head -10)
 
-    perl -ne 'print if $. <= 10'
-    perl -ne '$. <= 10 && print'
-    perl -ne 'print if 1..10'
+    perl6 -pe 'exit if $*ARGFILES.ins > 10' example.txt
+    perl6 -ne '.say if $*ARGFILES.ins < 11' example.txt
 
 Print the last line of a file (emulate tail -1)
 
-    perl -ne '$last = $_; END { print $last }'
-    perl -ne 'print if eof'
+    perl6 -e '$*ARGFILES.lines.pop.say' example.txt
 
 Print the last 10 lines of a file (emulate tail -10)
 
     perl -ne 'push @a, $_; @a = @a[@a-10..$#a]; END { print @a }'
 
-Print only lines that match a regular expression
+Print only lines that contain vowels
 
-    perl -ne '/regex/ && print'
+    perl6 -ne '/<[aeiou]>/ && .print' example.txt
 
-Print only lines that do not match a regular expression
+Print lines that contain all vowels
 
-    perl -ne '!/regex/ && print'
-
-Print the line before a line that matches a regular expression
-
-    perl -ne '/regex/ && $last && print $last; $last = $_'
-
-Print the line after a line that matches a regular expression
-
-    perl -ne 'if ($p) { print; $p = 0 } $p++ if /regex/'
-
-Print lines that match regex AAA and regex BBB in any order
-
-    perl -ne '/AAA/ && /BBB/ && print'
-
-Print lines that don't match match regexes AAA and BBB
-
-    perl -ne '!/AAA/ && !/BBB/ && print'
-
-Print lines that match regex AAA followed by regex BBB followed by CCC
-
-    perl -ne '/AAA.*BBB.*CCC/ && print'
+    perl6 -ne '/a/ && /e/ && /i/ && /o/ && /u/ && .print' example.txt
 
 Print lines that are 80 chars or longer
 
@@ -566,18 +499,3 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
     perl -alne 'print $F[0]'
 
 
-LICENSE
--------
-
-FreeBSD - see LICENSE
-
-
-THANKS
-------
-
-Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl one liners.
-
-These wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
-
-* timotimo
-* FROGGS
