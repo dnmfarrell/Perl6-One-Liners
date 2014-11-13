@@ -3,6 +3,8 @@ Perl6 One Liners
 
 This file is a work in progress, converting Perl5 one liners to Perl6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
 
+You can test the one liners on the accompanying "example.txt" file included in this repo.
+
 
 AUTHOR
 ------
@@ -40,8 +42,8 @@ CONTENTS
 2. Line Numbering (done)
 3. Calculations (not started)
 4. String Creation and Array Creation (done)
-5. Text Conversion and Substitution (in progress)
-6. Selective Printing and Deleting of Certain Lines
+5. Text Conversion and Substitution (not started)
+6. Selective Printing and Deleting of Certain Lines (done)
 
 
 FILE SPACING
@@ -428,35 +430,24 @@ Print lines that contain all vowels
 
 Print lines that are 80 chars or longer
 
-    perl -ne 'print if length >= 80'
+    perl6 -ne '.print if .chars >= 80' example.txt
+    perl6 -ne '.chars >= 80 && .print' example.txt
 
-Print lines that are less than 80 chars in length
+Print only line 2
 
-    perl -ne 'print if length < 80'
+    perl6 -ne '.print if $*ARGFILES.ins == 2' example.txt
 
-Print only line 13
+Print all lines except line 2
 
-    perl -ne '$. == 13 && print && exit'
+    perl6 -pe 'next if $*ARGFILES.ins == 2' example.txt 
 
-Print all lines except line 27
+Print all lines 1 to 3
 
-    perl -ne '$. != 27 && print'
-    perl -ne 'print if $. != 27'
-
-Print only lines 13, 19 and 67
-
-    perl -ne 'print if $. == 13 || $. == 19 || $. == 67'
-    perl -ne 'print if int($.) ~~ (13, 19, 67)' 
-
+    perl6 -ne '.print if (1..3).any == $*ARGFILES.ins' example.txt    
+    
 Print all lines between two regexes (including lines that match regex)
 
-    perl -ne 'print if /regex1/../regex2/'
-
-Print all lines from line 17 to line 30
-
-    perl -ne 'print if $. >= 17 && $. <= 30'
-    perl -ne 'print if int($.) ~~ (17..30)'
-    perl -ne 'print if grep { $_ == $. } 17..30'
+    perl6 -ne '.print if /^Lorem/../laborum\.$/' example.txt
 
 Print the longest line
 
@@ -468,34 +459,34 @@ Print the shortest line
 
 Print all lines that contain a number
 
-    perl -ne 'print if /\d/'
+    perl6 -ne '.say if /\d/' example.txt
+    perl6 -ne '/\d/ && .say' example.txt
+    perl6 -pe 'next if ! $_.match(/\d/)' example.txt
 
 Find all lines that contain only a number
 
-    perl -ne 'print if /^\d+$/'
+    perl6 -ne '.say if /^\d+$/' example.txt
+    perl6 -ne '/^\d+$/ && .say' example.txt
+    perl6 -pe 'next if ! $_.match(/^\d+$/)' example.txt
 
-Print all lines that contain only characters
+Print every odd line
 
-    perl -ne 'print if /^[[:alpha:]]+$/
+    perl6 -ne '.say if $*ARGFILES.ins % 2' example.txt
 
-Print every second line
+Print every even line
 
-    perl -ne 'print if $. % 2'
-
-Print every second line, starting the second line
-
-    perl -ne 'print if $. % 2 == 0'
+    perl6 -ne '.say if ! ($*ARGFILES.ins % 2)' example.txt
 
 Print all lines that repeat
 
-    perl -ne 'print if ++$a{$_} == 2'
+    perl6 -ne 'state %l;.say if ++%l{$_}==2' example.txt
 
-Print all unique lines
+Print unique lines
 
-    perl -ne 'print unless $a{$_}++'
+    perl6 -ne 'state %l;.say if ++%l{$_}==1' example.txt
 
 Print the first field (word) of every line (emulate cut -f 1 -d ' ')
 
-    perl -alne 'print $F[0]'
+    perl6 -ne '$_.words[0].say' example.txt
 
 
