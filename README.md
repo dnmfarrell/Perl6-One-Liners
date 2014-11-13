@@ -45,7 +45,7 @@ The wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&n
 CONTENTS
 --------
 
-1. [File Spacing](#FILE SPACING) (done)
+1. [File Spacing](#file-spacing) (done)
 2. Line Numbering (done)
 3. Calculations (not started)
 4. String Creation and Array Creation (done)
