@@ -3,7 +3,7 @@ Perl6 One Liners
 
 This file is a work in progress, converting Perl5 one liners to Perl6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
 
-You can test the one liners on the accompanying "example.txt" file included in this repo.
+You can test the one liners on the accompanying `example.txt` file included in this repo.
 
 
 AUTHOR
@@ -42,8 +42,8 @@ CONTENTS
 2. Line Numbering (done)
 3. Calculations (not started)
 4. String Creation and Array Creation (done)
-5. Text Conversion and Substitution (not started)
-6. Selective Printing and Deleting of Certain Lines (done)
+5. Text Conversion and Substitution (in progress)
+6. Selective Printing and Deleting of Certain Lines (in progress)
 
 
 FILE SPACING
