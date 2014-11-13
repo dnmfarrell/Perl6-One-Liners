@@ -74,8 +74,8 @@ LINE NUMBERING
 
 Number all lines in a file
 
-    perl6 -ne 'print ++$a ~ " $_"'
-    perl6 -ne 'say $*ARGFILES.ins ~ " $_"'
+    perl6 -ne 'print ++$a ~ " $_"' example.txt
+    perl6 -ne 'say $*ARGFILES.ins ~ " $_"' example.txt
 
 Number only non-empty lines in a file
 
