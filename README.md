@@ -170,17 +170,17 @@ Print the number PI to n decimal places
 
     perl -Mbignum=bpi -le 'print bpi(n)'
 
-Print the number PI to 39 decimal places
+Print the number PI to 15 decimal places
 
-    perl -Mbignum=PI -le 'print PI'
+    perl6 -e 'say π'
 
 Print the number E to n decimal places
 
     perl -Mbignum=bexp -le 'print bexp(1,n+1)'
 
-Print the number E to 39 decimal places
+Print the number E to 15 decimal places
 
-    perl -Mbignum=e -le 'print e'
+    perl6 -e 'say e'
 
 Print UNIX time (seconds since Jan 1, 1970, 00:00:00 UTC)
 
