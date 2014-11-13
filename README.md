@@ -24,26 +24,34 @@ LICENSE
 FreeBSD - see LICENSE
 
 
+CONTRIBUTORS
+------------
+
+* timotimo
+* FROGGS
+* Salve J Nilsen
+* Alexander Moquin
+* Larry Wall
+
+
 THANKS
 ------
 
 Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl one liners.
 
-These wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
-
-* timotimo
-* FROGGS
+The wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
 
 
 CONTENTS
 --------
 
-1. File Spacing (done)
+1. [File Spacing](#FILE SPACING) (done)
 2. Line Numbering (done)
 3. Calculations (not started)
 4. String Creation and Array Creation (done)
 5. Text Conversion and Substitution (in progress)
 6. Selective Printing and Deleting of Certain Lines (in progress)
+7. Converting for Windows (in progress)
 
 
 FILE SPACING
@@ -144,13 +152,17 @@ Replace each field with its absolute value
 
     perl -alne 'print "@{[map { abs } @F]}"'
 
-Find the total number of fields (words) on each line
+Find the total number of letters on each line
 
-    perl -alne 'print scalar @F'
+    perl6 -ne '.chars.Int.say' example.txt
+    
+Find the total number of words on each line
 
-Print the total number of fields (words) on each line followed by the line
+    perl6 -ne '.words.Int.say' example.txt
 
-    perl -alne 'print scalar @F, " $_"'
+Find the total number of elements on each line, split on a comma
+
+    perl6 -ne '.split(",").Int.say' example.txt
 
 Find the total number of fields (words) on all lines
 
@@ -275,10 +287,12 @@ Convert a decimal number to hex using @hex lookup table
 Generate a random 10 a-z character string
 
     perl6 -e 'print roll 10, "a".."z"'
+    perl6 -e 'print roll "a".."z": 10'
 
 Generate a random 15 ASCII Character password
 
     perl6 -e 'print roll 15, "0".."z"'
+    perl6 -e 'print roll "0".."z": 15'
 
 Create a string of specific length
 
@@ -306,13 +320,11 @@ ROT 13 a file
 
 Base64 encode a string
 
-    perl -MMIME::Base64 -e 'print encode_base64("string")'
-    perl -MMIME::Base64 -0777 -ne 'print encode_base64($_)' file
+    perl6 -MMIME::Base64 -ne 'print MIME::Base64.encode-str($_)' example.txt
 
 Base64 decode a string
 
-    perl -MMIME::Base64 -le 'print decode_base64("base64string")'
-    perl -MMIME::Base64 -ne 'print decode_base64($_)' file
+    perl6 -MMIME::Base64 -ne 'print MIME::Base64.decode-str($_)' base64.txt
 
 URL-escape a string
 
@@ -332,15 +344,11 @@ HTML-decode a string
 
 Convert all text to uppercase
 
-    perl -nle 'print uc'
-    perl -ple '$_=uc'
-    perl -nle 'print "\U$_"'
+    perl6 -ne 'say .uc' example.txt
 
 Convert all text to lowercase
 
-    perl -nle 'print lc'
-    perl -ple '$_=lc'
-    perl -nle 'print "\L$_"'
+    perl6 -ne 'say .lc' example.txt
 
 Uppercase only the first word of each line
 
@@ -358,44 +366,32 @@ Camel case each line
 
 Strip leading whitespace (spaces, tabs) from the beginning of each line
 
-    perl -ple 's/^[ \t]+//'
-    perl -ple 's/^\s+//'
+    perl6 -ne 'say .trim-leading' example.txt
 
 Strip trailing whitespace (space, tabs) from the end of each line
 
-    perl -ple 's/[ \t]+$//'
+    perl6 -ne 'say .trim-trailing' example.txt
 
 Strip whitespace from the beginning and end of each line
 
-    perl -ple 's/^[ \t]+|[ \t]+$//g'
+    perl6 -ne 'say .trim' example.txt
 
 Convert UNIX newlines to DOS/Windows newlines
 
-    perl -pe 's|\n|\r\n|'
+    perl6 -ne 'print .subst(/\n/, "\r\n")' example.txt
 
 Convert DOS/Windows newlines to UNIX newlines
 
-    perl -pe 's|\r\n|\n|'
+    perl6 -ne 'print .subst(/\r\n/, "\n")' example.txt
 
-Convert UNIX newlines to Mac newlines
+Find and replace all instances of "ut" with "foo" on each line
 
-    perl -pe 's|\n|\r|'
+    perl6 -ne 'say .subst(/ut/, q/foo/, :g)' example.txt
+    perl6 -pe '$_ = .subst(/ut/, q/foo/, :g)' example.txt
 
-Substitute (find and replace) "foo" with "bar" on each line
+Find and replace all instances of "ut" with "foo" on each line that contains "lorem"
 
-    perl -pe 's/foo/bar/'
-
-Substitute (find and replace) all "foo"s with "bar" on each line
-
-    perl -pe 's/foo/bar/g'
-
-Substitute (find and replace) "foo" with "bar" on lines that match "baz"
-
-    perl -pe '/baz/ && s/foo/bar/'
-
-Binary patch a file (find and replace a given array of bytes as hex numbers)
-
-    perl -pi -e 's/\x89\xD8\x48\x8B/\x90\x90\x48\x8B/g' file
+    perl6 -ne '.subst(/ut/, q/foo/).say if /Lorem/' example.txt
 
 
 SELECTIVE PRINTING AND DELETING OF CERTAIN LINES
@@ -435,11 +431,11 @@ Print lines that are 80 chars or longer
 
 Print only line 2
 
-    perl6 -ne '.print if ++$ == 2' example.txt
+    perl6 -ne '.print if ++$a == 2' example.txt
 
 Print all lines except line 2
 
-    perl6 -pe 'next if ++$ == 2' example.txt 
+    perl6 -pe 'next if ++$a == 2' example.txt 
 
 Print all lines 1 to 3
 
@@ -490,3 +486,15 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
     perl6 -ne '.words[0].say' example.txt
 
 
+CONVERTING FOR WINDOWS
+----------------------
+
+Running these one liners on Windows is a piece of cake once you know the rules of the road. The cardinal rule is: replace the outer single-quotes with double quotes, and use quoting operators `q//` and `qq//` (interpolated) when quoting strings inside a one liner.
+
+Thus this one liner to prepend a blank line to every line in `example.txt`:
+
+    perl6 -pe 'say ""' example.txt
+    
+Becomes:
+
+    perl6 -pe "say q//" example.txt
