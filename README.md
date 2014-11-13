@@ -89,17 +89,17 @@ Number all lines but print line numbers only for non-empty lines
 
 Print the total number of lines in a file (emulate wc -l)
 
-    perl6 -e 'say $*ARGFILES.lines.elems' example.txt
-    perl6 -e 'say $*ARGFILES.lines.Int' example.txt
-    perl6 -e '$*ARGFILES.lines.Int.say' example.txt
+    perl6 -e 'say lines.elems' example.txt
+    perl6 -e 'say lines.Int' example.txt
+    perl6 -e 'lines.Int.say' example.txt
 
 Print the number of non-empty lines in a file
 
-    perl6 -e '$*ARGFILES.lines.grep(/\S/).elems.say' example.txt
+    perl6 -e 'lines.grep(/\S/).elems.say' example.txt
 
 Print the number of empty lines in a file
 
-    perl6 -e '$*ARGFILES.lines.grep(/\s/).elems.say' example.txt
+    perl6 -e 'lines.grep(/\s/).elems.say' example.txt
 
 
 CALCULATIONS
@@ -404,17 +404,17 @@ SELECTIVE PRINTING AND DELETING OF CERTAIN LINES
 Print the first line of a file (emulate head -1)
 
     perl6 -ne '.say;exit' example.txt
-    perl6 -e '$*ARGFILES.lines[0].say' example.txt
-    perl6 -e '$*ARGFILES.lines.shift.say' example.txt
+    perl6 -e 'lines[0].say' example.txt
+    perl6 -e 'lines.shift.say' example.txt
 
 Print the first 10 lines of a file (emulate head -10)
 
-    perl6 -pe 'exit if $*ARGFILES.ins > 10' example.txt
-    perl6 -ne '.say if $*ARGFILES.ins < 11' example.txt
+    perl6 -pe 'exit if ++$ > 10' example.txt
+    perl6 -ne '.say if ++$ < 11' example.txt
 
 Print the last line of a file (emulate tail -1)
 
-    perl6 -e '$*ARGFILES.lines.pop.say' example.txt
+    perl6 -e 'lines.pop.say' example.txt
 
 Print the last 10 lines of a file (emulate tail -10)
 
@@ -435,15 +435,15 @@ Print lines that are 80 chars or longer
 
 Print only line 2
 
-    perl6 -ne '.print if $*ARGFILES.ins == 2' example.txt
+    perl6 -ne '.print if ++$ == 2' example.txt
 
 Print all lines except line 2
 
-    perl6 -pe 'next if $*ARGFILES.ins == 2' example.txt 
+    perl6 -pe 'next if ++$ == 2' example.txt 
 
 Print all lines 1 to 3
 
-    perl6 -ne '.print if (1..3).any == $*ARGFILES.ins' example.txt    
+    perl6 -ne '.print if (1..3).any == ++$' example.txt    
     
 Print all lines between two regexes (including lines that match regex)
 
@@ -471,11 +471,11 @@ Find all lines that contain only a number
 
 Print every odd line
 
-    perl6 -ne '.say if $*ARGFILES.ins % 2' example.txt
+    perl6 -ne '.say if ++$ % 2' example.txt
 
 Print every even line
 
-    perl6 -ne '.say if ! ($*ARGFILES.ins % 2)' example.txt
+    perl6 -ne '.say if ! (++$ % 2)' example.txt
 
 Print all lines that repeat
 
@@ -487,6 +487,6 @@ Print unique lines
 
 Print the first field (word) of every line (emulate cut -f 1 -d ' ')
 
-    perl6 -ne '$_.words[0].say' example.txt
+    perl6 -ne '.words[0].say' example.txt
 
 
