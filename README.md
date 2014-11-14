@@ -300,7 +300,7 @@ Create a string of specific length
 
 Generate and print an array of even numbers from 1 to 100
 
-    perl6 -e 'my @evens = grep { $_ % 2 == 0 }, 1..100; @evens.say'
+    perl6 -e perl6 -e '(grep { $_ % 2 == 0 }, 1..100).say'
 
 Find the length of the string
 
@@ -316,7 +316,7 @@ TEXT CONVERSION AND SUBSTITUTION
 
 ROT 13 a file
 
-    perl -lpe 'y/A-Za-z/N-ZA-Mn-za-m/' example.txt
+    perl6 -ne 'say .trans(("A".."Z", "a".."z") => ("N".."Z", "A".."M", "n".."z", "a".."m"))' example.txt
 
 Base64 encode a string
 
@@ -328,11 +328,11 @@ Base64 decode a string
 
 URL-escape a string
 
-    perl -MURI::Escape -le 'print uri_escape($string)'
+    perl6 -MURI::Encode -le 'say uri_encode($string)'
 
 URL-unescape a string
 
-    perl -MURI::Escape -le 'print uri_unescape($string)'
+    perl6 -MURI::Encode -le 'say uri_decode($string)'
 
 HTML-encode a string
 
