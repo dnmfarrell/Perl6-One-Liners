@@ -27,12 +27,13 @@ FreeBSD - see LICENSE
 CONTRIBUTORS
 ------------
 
+* Matt Oates
 * timotimo
 * FROGGS
 * Salve J Nilsen
 * Alexander Moquin
 * Larry Wall
-
+* moritz
 
 THANKS
 ------
@@ -219,8 +220,7 @@ Prepend timestamps to stdout (GMT, localtime)
 
 Calculate factorial of 5
 
-    perl -MMath::BigInt -le 'print Math::BigInt->new(5)->bfac()'
-    perl -le '$f = 1; $f *= $_ for 1..5; print $f'
+    perl6 -e 'say [*] 1..5'
 
 Calculate greatest common divisor (GCM)
 
