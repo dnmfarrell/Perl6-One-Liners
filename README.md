@@ -115,68 +115,65 @@ CALCULATIONS
 
 Check if a number is a prime
 
-    perl -lne '(1x$_) !~ /^1?$|^(11+?)\1+$/ && print "$_ is prime"'
+    perl6 -ne 'say "$_ is prime" if $_.Int.is-prime'
 
 Print the sum of all the fields on a line
 
-    perl -MList::Util=sum -alne 'print sum @F'
+    perl6 -ne 'say [+] .split("\t")'
 
 Print the sum of all the fields on all lines
 
-    perl -MList::Util=sum -alne 'push @S,@F; END { print sum @S }'
-    perl -MList::Util=sum -alne '$s += sum @F; END { print $s }'
+    perl6 -e 'say [+] lines.split("\t")'
 
 Shuffle all fields on a line
 
-    perl -MList::Util=shuffle -alne 'print "@{[shuffle @F]}"'
-    perl -MList::Util=shuffle -alne 'print join " ", shuffle @F'
+    perl6 -ne '.split("\t").pick(*).join("\t").say'
 
 Find the minimum element on a line
 
-    perl -MList::Util=min -alne 'print min @F'
+    perl6 -ne '.split("\t").min.say'
 
 Find the minimum element over all the lines
 
-    perl -MList::Util=min -alne '@M = (@M, @F); END { print min @M }'
-    perl -MList::Util=min -alne '$min = min @F; $rmin = $min unless defined $rmin && $min > $rmin; END { print $rmin }'
+    perl6 -e 'lines.split("\t").min.say'
 
 Find the maximum element on a line
 
-    perl -MList::Util=max -alne 'print max @F'
+    perl6 -ne '.split("\t").max.say'
 
 Find the maximum element over all the lines
 
-    perl -MList::Util=max -alne '@M = (@M, @F); END { print max @M }'
+    perl6 -e 'lines.split("\t").max.say'
 
 Replace each field with its absolute value
 
-    perl -alne 'print "@{[map { abs } @F]}"'
+    perl6 -ne '.split("\t").map(*.abs).join("\t").say'
 
 Find the total number of letters on each line
 
-    perl6 -ne '.chars.Int.say' example.txt
+    perl6 -ne '.chars.say' example.txt
     
 Find the total number of words on each line
 
-    perl6 -ne '.words.Int.say' example.txt
+    perl6 -ne '.words.elems.say' example.txt
 
 Find the total number of elements on each line, split on a comma
 
-    perl6 -ne '.split(",").Int.say' example.txt
+    perl6 -ne '.split(",").elems.say' example.txt
 
 Find the total number of fields (words) on all lines
 
-    perl -alne '$t += @F; END { print $t}'
+    perl6 -e 'say lines.split("\t").elems' #fields
+    perl6 -e 'say lines.words.elems' example.txt #words
 
 Print the total number of fields that match a pattern
 
-    perl -alne 'map { /regex/ && $t++ } @F; END { print $t }'
-    perl -alne '$t += /regex/ for @F; END { print $t }'
-    perl -alne '$t += grep /regex/, @F; END { print $t }'
+    perl6 -e 'say lines.split("\t").comb(/pattern/).elems' #fields
+    perl6 -e 'say lines.words.comb(/pattern/).elems' #words
 
 Print the total number of lines that match a pattern
 
-    perl -lne '/regex/ && $t++; END { print $t }'
+    perl6 -e 'say lines.grep(/in/).elems'
 
 Print the number PI to n decimal places
 
@@ -196,29 +193,29 @@ Print the number E to 15 decimal places
 
 Print UNIX time (seconds since Jan 1, 1970, 00:00:00 UTC)
 
-    perl -le 'print time'
+    perl6 -e 'say time'
 
 Print GMT (Greenwich Mean Time) and local computer time
 
-    perl -le 'print scalar gmtime'
-    perl -le 'print scalar localtime'
+    perl6 -MDateTime::TimeZone -e 'say to-timezone("GMT",DateTime.now)'
+    perl6 -e 'say DateTime.now'
 
 Print local computer time in H:M:S format
 
-    perl -le 'print join ":", (localtime)[2,1,0]'
+    perl6 -e 'say DateTime.now.map({$_.hour, $_.minute, $_.second.round}).join(":")'
 
 Print yesterday's date
 
-    perl -MPOSIX -le '@now = localtime; $now[3] -= 1; print scalar localtime mktime @now'
+    perl6 -e 'say DateTime.now.earlier(:1day)'
 
 Print date 14 months, 9 days and 7 seconds ago
 
-    perl -MPOSIX -le '@now = localtime; $now[0] -= 7; $now[4] -= 14; $now[7] -= 9; print scalar localtime mktime @now'
+    perl6 -e 'say DateTime.now.earlier(:14months).earlier(:9days).earlier(:7seconds)'
 
 Prepend timestamps to stdout (GMT, localtime)
 
-    tail -f logfile | perl -ne 'print scalar gmtime," ",$_'
-    tail -f logfile | perl -ne 'print scalar localtime," ",$_'
+    tail -MDateTime::TimeZone -f logfile | perl6 -ne 'say to-timezone("GMT",DateTime.now) ~ "\t$_"'
+    tail -f logfile | perl6 -ne 'say DateTime.now ~ "\t$_"'
 
 Calculate factorial of 5
 
