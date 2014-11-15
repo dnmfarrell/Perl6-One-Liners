@@ -1,7 +1,7 @@
 Perl 6 One Liners
 =================
 
-This file is a work in progress, converting Perl 5 one liners to Perl 6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
+This book is a work in progress, converting Perl 5 one liners to Perl 6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
 
 You can test the one liners on the accompanying `example.txt` file included in this repo.
 
@@ -27,32 +27,84 @@ FreeBSD - see LICENSE
 CONTRIBUTORS
 ------------
 
-* Matt Oates
-* timotimo
-* FROGGS
-* Salve J Nilsen
 * Alexander Moquin
+* FROGGS
 * Larry Wall
+* Matt Oates
+* Salve J Nilsen
 * moritz
+* timotimo
 
 THANKS
 ------
 
-Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl one liners.
+Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl 5 one liners.
 
-The wonderful folks on perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
+The wonderful folks on #Perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
 
 
 CONTENTS
 --------
 
-1. [File Spacing](#file-spacing)
-2. [Line Numbering](#line-numbering)
-3. [Calculations](#calculations) (in progress)
-4. [String Creation and Array Creation](#string-creation-and-array-creation)
-5. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
-6. [Selective Line Printing](#selective-line-printing) (in progress)
-7. [Converting for Windows](#converting-for-windows) (in progress)
+1. [Introduction](#introduction)
+2. [File Spacing](#file-spacing)
+3. [Line Numbering](#line-numbering)
+4. [Calculations](#calculations) (in progress)
+5. [String Creation and Array Creation](#string-creation-and-array-creation)
+6. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
+7. [Selective Line Printing](#selective-line-printing)
+8. [Converting for Windows](#converting-for-windows) (in progress)
+
+
+INTRODUCTION
+------------
+
+One thing that sets Perl apart from other languages is the ability to write small programs in a single line of code, known as a "one liner". It's faster to type a program directly into the terminal than to write a throwaway script. And one liners are powerful too; they're fully fledged Perl programs, can load external libraries but also integrate into the terminal, you can pipe data in or out of a one liner.
+
+Like Perl 5, Perl 6 supports one liners. And just like Perl 6 cleaned up Perl 5's warts elsewhere, the one liner syntax is also better. It's cleaner with fewer special variables and command line switches to memorize. To get started with one liners, all you really need to understand is the `-e` option. This tells Perl to execute what follows as a program. For example:
+
+    perl6 -e 'say "Hello, World!"'
+
+Let's break down this code. `perl6` invokes the Perl 6 program, `-e` tells Perl 6 to execute and `'say "Hello, World!"'` is the program. Every program must be surrounded in single quotes (except on Windows, see [Converting for Windows](#converting-for-windows)). To run the one-liner, just type it into the terminal:
+
+    > perl6 -e 'say "Hello, World!"'
+    Hello, World!
+
+If you want to load a file, just add the path to the file after the program code:
+
+    perl6 -e 'for (lines) { say $_ }' /path/to/file.txt
+
+This program prints every line in `/path/to/file.txt`. You may know that `$_` is the default variable, which in this case is the current line being looped through. `lines` is a list that is automatically created for you whenever you pass a filepath to a one-liner. Now let's re-write that one liner, step-by-step. These are all equivalent:
+
+    perl6 -e 'for (lines) { say $_ }' /path/to/file.txt
+    perl6 -e 'for (lines) { $_.say }' /path/to/file.txt
+    perl6 -e 'for (lines) { .say }' /path/to/file.txt
+    perl6 -e '.say for (lines)' /path/to/file.txt
+    perl6 -e '.say for lines' /path/to/file.txt
+
+Just like `$_` is the default variable, methods called on the default variable can omit the variable referece. They become default methods. So `$_.say` becomes `.say`. This brevity pays off with one liners - it's less typing!
+
+The `-n` option changes the behavior of the program: it executes the code once for every line of the file. So uppercase and print every line of `/path/to/file.txt` you can type:
+
+    perl6 -ne '.uc.say' /path/to/file.txt
+
+The `-p` option is just like `-n` except that it will automatically print `$_`. So another way we could uppercase a file would be:
+
+    perl6 -pe '$_ = .uc' /path/to/file.txt
+
+The `-n` and `-p` options are really useful. There are lots of example one-liners that use them in this book.
+
+The final thing you should know is how to load a module. This is really powerful as you can extend Perl 6's capabilities by importing external libraries. The `-M` switch stands for load module:
+
+    perl6 -M URI::Encode -e 'say encode_uri("www.example.com/10 ways to crush it with Perl 6")'
+
+This: `-M URI::Encode` loads the URI::Encode module, which exports the `encode_uri` subroutine.
+
+What if you have a local module, that is not installed yet? Easy, just pass use the `-I` switch to include the directory:
+
+    perl6 -I lib -M URI::Encode -e 'say encode_uri("www.example.com/10 ways to crush it with Perl 6")'
+
+Now Perl 6 will search for `URI::Encode` in `lib` as well as the standard install locations.
 
 
 FILE SPACING
@@ -234,7 +286,7 @@ Calculate least common multiple (LCM) of numbers 35, 20 and 8
 
     perl6 -e 'say 35 gcd 20 gcd 8'
 
-Calculate LCM of 20 and 35 using Euclid's formula: n*m/gcd(n,m)
+Calculate LCM of 20 and 35 using Euclid's formula: `n*m/gcd(n,m)`
 
     perl -le '$a = $n = 20; $b = $m = 35; ($m,$n) = ($n,$m%$n) while $n; print $a*$b/$m'
 
@@ -275,9 +327,14 @@ Generate and print all the strings from "a" to "zz"
 
     perl6 -e 'print "a".."zz"'
 
-Convert a decimal number to hex using @hex lookup table
+Convert a integer to hex
 
-    perl6 -e 'sprintf("%%%x", 255).say'
+    perl6 -e 'say 255.base(16)'
+    perl6 -e 'say sprintf("%x", 255)'
+
+Percent encode an integer
+
+    perl6 -e 'say sprintf("%%%x", 255)'
 
 Generate a random 10 a-z character string
 
@@ -434,8 +491,8 @@ Print all lines except line 2
 
 Print all lines 1 to 3
 
-    perl6 -ne '.print if (1..3).any == ++$' example.txt    
-    
+    perl6 -ne '.print if (1..3).any == ++$' example.txt
+
 Print all lines between two regexes (including lines that match regex)
 
     perl6 -ne '.print if /^Lorem/../laborum\.$/' example.txt
@@ -494,4 +551,4 @@ Becomes:
 
     perl6 -pe "say q//" example.txt
 
-The caret `^` operator may need to be escaped.
+The caret `^` operator may need to be escaped by entering it twice: `^^`.
