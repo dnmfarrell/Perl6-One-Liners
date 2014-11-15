@@ -405,11 +405,11 @@ URL-unescape a string
 
 HTML-encode a string
 
-    perl -MHTML::Entities -le 'print encode_entities($string)'
+    perl6 -MHTML::Entity -e 'print encode-entities($string)'
 
 HTML-decode a string
 
-    perl -MHTML::Entities -le 'print decode_entities($string)'
+    perl6 -MHTML::Entity -e 'print decode-entities($string)'
 
 Convert all text to uppercase
 
