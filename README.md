@@ -277,9 +277,7 @@ Generate and print all the strings from "a" to "zz"
 
 Convert a decimal number to hex using @hex lookup table
 
-    perl -le '$num = 255; @hex = (0..9, "a".."f"); while ($num) { $s = $hex[($num%16)&15].$s; $num = int $num/16 } print $s'
-    perl -le '$hex = sprintf("%x", 255); print $hex'
-    perl -le '$num = "ff"; print hex $num'
+    perl6 -e 'sprintf("%%%x", 255).say'
 
 Generate a random 10 a-z character string
 
@@ -354,7 +352,7 @@ Uppercase only the first word of each line
 
 Invert the letter case
 
-    perl -ple 'y/A-Za-z/a-zA-Z/'
+    perl6 -ne 'say tr/a..zA..Z/A..Za..z/.after' example.txt
 
 Camel case each line
 
@@ -409,9 +407,9 @@ Print the last line of a file (emulate tail -1)
 
     perl6 -e 'lines.pop.say' example.txt
 
-Print the last 10 lines of a file (emulate tail -10)
+Print the last 5 lines of a file (emulate tail -5)
 
-    perl -ne 'push @a, $_; @a = @a[@a-10..$#a]; END { print @a }'
+    perl6 -e '.say for lines[^5]' example.txt
 
 Print only lines that contain vowels
 
@@ -442,13 +440,13 @@ Print all lines between two regexes (including lines that match regex)
 
     perl6 -ne '.print if /^Lorem/../laborum\.$/' example.txt
 
+Print the length of the longest line
+
+    perl6 -ne 'state $l=0; $l = .chars if .chars > $l;END { $l.say }' example.txt
+
 Print the longest line
 
-    perl -ne '$l = $_ if length($_) > length($l); END { print $l }'
-
-Print the shortest line
-
-    perl -ne '$s = $_ if $. == 1; $s = $_ if length($_) < length($s); END { print $s }'
+    perl6 -e 'my $l=""; for (lines) {$l = $_ if .chars > $l.chars};END { $l.say }' example.txt
 
 Print all lines that contain a number
 
@@ -491,7 +489,9 @@ Running these one liners on Windows is a piece of cake once you know the rules o
 Thus this one liner to prepend a blank line to every line in `example.txt`:
 
     perl6 -pe 'say ""' example.txt
-    
+
 Becomes:
 
     perl6 -pe "say q//" example.txt
+
+The caret `^` operator may need to be escaped.
