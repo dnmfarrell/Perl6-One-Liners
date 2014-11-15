@@ -32,7 +32,7 @@ CONTRIBUTORS
 * Larry Wall
 * Matt Oates
 * Salve J Nilsen
-* moritz
+* Moritz Lenz
 * timotimo
 
 THANKS
@@ -40,28 +40,37 @@ THANKS
 
 Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl 5 one liners.
 
-The wonderful folks on #Perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=):
+The wonderful folks on #Perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=).
 
 
 CONTENTS
 --------
 
 1. [Introduction](#introduction)
-2. [File Spacing](#file-spacing)
-3. [Line Numbering](#line-numbering)
-4. [Calculations](#calculations) (in progress)
-5. [String Creation and Array Creation](#string-creation-and-array-creation)
-6. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
-7. [Selective Line Printing](#selective-line-printing)
-8. [Converting for Windows](#converting-for-windows) (in progress)
+2. [Tutorial](#tutorial)
+3. [File Spacing](#file-spacing)
+4. [Line Numbering](#line-numbering)
+5. [Calculations](#calculations) (in progress)
+6. [String Creation and Array Creation](#string-creation-and-array-creation)
+7. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
+8. [Selective Line Printing](#selective-line-printing)
+9. [Converting for Windows](#converting-for-windows)
 
 
 INTRODUCTION
 ------------
 
-One thing that sets Perl apart from other languages is the ability to write small programs in a single line of code, known as a "one liner". It's faster to type a program directly into the terminal than to write a throwaway script. And one liners are powerful too; they're fully fledged Perl programs, can load external libraries but also integrate into the terminal, you can pipe data in or out of a one liner.
+One thing that sets Perl apart from other languages is the ability to write small programs in a single line of code, known as a "one liner". It's faster to type a program directly into the terminal than to write a throwaway script. And one liners are powerful too; they're fully fledged Perl programs, can load external libraries but also integrate into the terminal. You can pipe data in or out of a one liner.
 
-Like Perl 5, Perl 6 supports one liners. And just like Perl 6 cleaned up Perl 5's warts elsewhere, the one liner syntax is also better. It's cleaner with fewer special variables and command line switches to memorize. To get started with one liners, all you really need to understand is the `-e` option. This tells Perl to execute what follows as a program. For example:
+Like Perl 5, Perl 6 supports one liners. And just like Perl 6 cleaned up Perl 5's warts elsewhere, the one liner syntax is also better. It's cleaner with fewer special variables and options to memorize. This book provides many useful examples of Perl 6 one liners that can do everything from finding duplicate lines in a file to translating numbers into hexadecimal notation. Although Perl 6 has fewer special variables, because of it's advanced object oriented syntax most of the one liners are shorter in Perl 6 than their Perl 5 equivalent.
+
+Programming with one liners is just one paradigm that Perl 6 excels in. Check out the [perl6.org](http://perl6.org) website for the official documentation.
+
+
+TUTORIAL
+--------
+
+To get started with one liners, all you really need to understand is the `-e` option. This tells Perl to execute what follows as a program. For example:
 
     perl6 -e 'say "Hello, World!"'
 
@@ -105,6 +114,10 @@ What if you have a local module, that is not installed yet? Easy, just pass use 
     perl6 -I lib -M URI::Encode -e 'say encode_uri("www.example.com/10 ways to crush it with Perl 6")'
 
 Now Perl 6 will search for `URI::Encode` in `lib` as well as the standard install locations.
+
+To get a list of Perl 6 command line switches, use the `-h` option:
+
+    perl6 -h
 
 
 FILE SPACING
@@ -332,6 +345,10 @@ Convert a integer to hex
     perl6 -e 'say 255.base(16)'
     perl6 -e 'say sprintf("%x", 255)'
 
+Print an int to hex translation table
+
+    perl6 -e 'say sprintf("%3i => %2x", $_, $_) for 0..255'
+
 Percent encode an integer
 
     perl6 -e 'say sprintf("%%%x", 255)'
@@ -550,5 +567,3 @@ Thus this one liner to prepend a blank line to every line in `example.txt`:
 Becomes:
 
     perl6 -pe "say q//" example.txt
-
-The caret `^` operator may need to be escaped by entering it twice: `^^`.
