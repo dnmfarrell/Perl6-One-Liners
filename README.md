@@ -516,21 +516,25 @@ Print all lines between two regexes (including lines that match regex)
 
 Print the length of the longest line
 
+    perl6 -e 'say lines.max.chars' example.txt
     perl6 -ne 'state $l=0; $l = .chars if .chars > $l;END { $l.say }' example.txt
 
 Print the longest line
 
+    perl6 -e 'say lines.max' example.txt
     perl6 -e 'my $l=""; for (lines) {$l = $_ if .chars > $l.chars};END { $l.say }' example.txt
 
 Print all lines that contain a number
 
     perl6 -ne '.say if /\d/' example.txt
+    perl6 -e '.say for lines.grep(/\d/)' example.txt
     perl6 -ne '/\d/ && .say' example.txt
     perl6 -pe 'next if ! $_.match(/\d/)' example.txt
 
 Find all lines that contain only a number
 
     perl6 -ne '.say if /^\d+$/' example.txt
+    perl6 -e '.say for lines.grep(/^\d+$/)' example.txt
     perl6 -ne '/^\d+$/ && .say' example.txt
     perl6 -pe 'next if ! $_.match(/^\d+$/)' example.txt
 
