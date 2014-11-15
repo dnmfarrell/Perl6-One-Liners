@@ -153,7 +153,7 @@ Replace each field with its absolute value
 Find the total number of letters on each line
 
     perl6 -ne '.chars.say' example.txt
-    
+
 Find the total number of words on each line
 
     perl6 -ne '.words.elems.say' example.txt
@@ -224,15 +224,15 @@ Calculate factorial of 5
 
 Calculate greatest common divisor (GCM)
 
-    perl -MMath::BigInt=bgcd -le 'print bgcd(@list_of_numbers)'
+    perl6 -e 'say [gcd] @list_of_numbers'
 
 Calculate GCM of numbers 20 and 35 using Euclid's algorithm
 
-    perl -le '$n = 20; $m = 35; ($m,$n) = ($n,$m%$n) while $n; print $m'
+    perl6 -e 'say (35, 20, *%* ... 0)[*-2]'
 
 Calculate least common multiple (LCM) of numbers 35, 20 and 8
 
-    perl -MMath::BigInt=blcm -le 'print blcm(35,20,8)'
+    perl6 -e 'say 35 gcd 20 gcd 8'
 
 Calculate LCM of 20 and 35 using Euclid's formula: n*m/gcd(n,m)
 
@@ -240,11 +240,11 @@ Calculate LCM of 20 and 35 using Euclid's formula: n*m/gcd(n,m)
 
 Generate 10 random numbers between 5 and 15 (excluding 15)
 
-    perl -le '$n=10; $min=5; $max=15; $, = " "; print map { int(rand($max-$min))+$min } 1..$n'
+    perl6 -e '.say for (5..^15).roll(10)'
 
 Find and print all permutations of a list
 
-    perl -MAlgorithm::Permute -le '$l = [1,2,3,4,5]; $p = Algorithm::Permute->new($l); print @r while @r = $p->next'
+    perl6 -e 'say .join for [1..5].permutations'
 
 Generate the power set
 
