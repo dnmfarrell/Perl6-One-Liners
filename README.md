@@ -29,6 +29,7 @@ CONTRIBUTORS
 
 * Alexander Moquin
 * FROGGS
+* japhb
 * Larry Wall
 * Matt Oates
 * Moritz Lenz
@@ -321,15 +322,15 @@ Generate the power set
     
 Convert an IP address to unsigned integer
 
-    perl -le '$i=3; $u += ($_<<8*$i--) for "127.0.0.1" =~ /(\d+)/g; print $u'
-    perl -le '$ip="127.0.0.1"; $ip =~ s/(\d+)\.?/sprintf("%02x", $1)/ge; print hex($ip)'
-    perl -le 'print unpack("N", 127.0.0.1)'    
-
+    perl6 -e 'say :256["127.0.0.1".comb(/\d+/)]'
+    perl6 -e 'say +":256[{q/127.0.0.1/.subst(:g,/\./,q/,/)}]"'
+    perl6 -e 'say Buf.new(+«"127.0.0.1".split(".")).unpack("N")' 
+    
 Convert an unsigned integer to an IP address
 
     perl6 -e 'say join ".", @(pack "N", 2130706433)'
     perl6 -e 'say join ".", map { ((2130706433+>(8*$_))+&0xFF) }, (3...0)'
-
+    perl6 -e 'say join ",", @(unpack "N", "127.0.0.1")' 
 
 STRING CREATION AND ARRAY CREATION
 ----------------------------------
