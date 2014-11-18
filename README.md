@@ -291,7 +291,7 @@ Calculate factorial of 5
 
     perl6 -e 'say [*] 1..5'
 
-Calculate greatest common divisor (GCM)
+Calculate greatest common divisor
 
     perl6 -e 'say [gcd] @list_of_numbers'
 
@@ -299,13 +299,13 @@ Calculate GCM of numbers 20 and 35 using Euclid's algorithm
 
     perl6 -e 'say (35, 20, *%* ... 0)[*-2]'
 
-Calculate least common multiple (LCM) of numbers 35, 20 and 8
+Calculate least common multiple (LCM) of numbers 35, 20
 
-    perl6 -e 'say 35 gcd 20 gcd 8'
+    perl6 -e 'say 35 lcm 20'
 
-Calculate LCM of 20 and 35 using Euclid's formula: `n*m/gcd(n,m)`
+Calculate LCM of 20 and 35 using Euclid's algorithm: `n*m/gcd(n,m)`
 
-    perl -le '$a = $n = 20; $b = $m = 35; ($m,$n) = ($n,$m%$n) while $n; print $a*$b/$m'
+    perl6 -e 'say 20 * 35 / (20 gcd 35)'
 
 Generate 10 random numbers between 5 and 15 (excluding 15)
 
@@ -317,20 +317,18 @@ Find and print all permutations of a list
 
 Generate the power set
 
-    perl -MList::PowerSet=powerset -le '@l = (1,2,3,4,5); for (@{powerset(@l)}) { print "@$_" }'
-
+    perl6 -e '.say for <1 2 3>.combinations'
+    
 Convert an IP address to unsigned integer
 
     perl -le '$i=3; $u += ($_<<8*$i--) for "127.0.0.1" =~ /(\d+)/g; print $u'
     perl -le '$ip="127.0.0.1"; $ip =~ s/(\d+)\.?/sprintf("%02x", $1)/ge; print hex($ip)'
-    perl -le 'print unpack("N", 127.0.0.1)'
-    perl -MSocket -le 'print unpack("N", inet_aton("127.0.0.1"))'
+    perl -le 'print unpack("N", 127.0.0.1)'    
 
 Convert an unsigned integer to an IP address
 
-    perl -MSocket -le 'print inet_ntoa(pack("N", 2130706433))'
-    perl -le '$ip = 2130706433; print join ".", map { (($ip>>8*($_))&0xFF) } reverse 0..3'
-    perl -le '$ip = 2130706433; $, = "."; print map { (($ip>>8*($_))&0xFF) } reverse 0..3'
+    perl6 -e 'say join ".", @(pack "N", 2130706433)'
+    perl6 -e 'say join ".", map { ((2130706433+>(8*$_))+&0xFF) }, (3...0)'
 
 
 STRING CREATION AND ARRAY CREATION
