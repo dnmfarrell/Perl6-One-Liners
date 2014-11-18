@@ -490,7 +490,8 @@ Print only lines that contain vowels
 
 Print lines that contain all vowels
 
-    perl6 -ne '/a/ && /e/ && /i/ && /o/ && /u/ && .print' example.txt
+    perl6 -ne '.say if .comb (>=) <a e i o u>' example.txt
+    perl6 -ne '.say if .comb ⊇ <a e i o u>' example.txt
 
 Print lines that are 80 chars or longer
 
