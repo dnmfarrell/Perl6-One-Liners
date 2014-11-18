@@ -241,17 +241,17 @@ Print the total number of lines that match a pattern
 
     perl6 -e 'say lines.grep(/in/).elems'
 
-Print the number PI to n decimal places
+Print the number PI to n decimal places (e.g. 10)
 
-    perl -Mbignum=bpi -le 'print bpi(n)'
+    perl6 -e 'say pi.fmt("%.10f");
 
 Print the number PI to 15 decimal places
 
     perl6 -e 'say π'
 
-Print the number E to n decimal places
+Print the number E to n decimal places (e.g. 10)
 
-    perl -Mbignum=bexp -le 'print bexp(1,n+1)'
+    perl6 -e 'say e.fmt("%.10f");
 
 Print the number E to 15 decimal places
 
@@ -562,7 +562,7 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
 CONVERTING FOR WINDOWS
 ----------------------
 
-Running these one liners on Windows is a piece of cake once you know the rules of the road. The cardinal rule is: replace the outer single-quotes with double quotes, and use quoting operators `q//` and `qq//` (interpolated) when quoting strings inside a one liner.
+Running these one liners on Windows is a piece of cake once you know the rules of the road. The cardinal rule is: replace the outer single-quotes with double quotes and use quoting operators `q//` and `qq//` (interpolated) when quoting strings inside a one liner.
 
 Thus this one liner to prepend a blank line to every line in `example.txt`:
 
@@ -571,3 +571,6 @@ Thus this one liner to prepend a blank line to every line in `example.txt`:
 Becomes:
 
     perl6 -pe "say q//" example.txt
+
+Stick to this rule and remember not to use single quotes anywhere in the one-liner, and the code will run fine on Windows cmd.exe and PowerShell.
+
