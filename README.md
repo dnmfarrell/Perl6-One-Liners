@@ -31,10 +31,12 @@ CONTRIBUTORS
 * FROGGS
 * Larry Wall
 * Matt Oates
+* Moritz Lenz
 * Mouq
 * Salve J Nilsen
-* Moritz Lenz
+* Sam S
 * timotimo
+
 
 THANKS
 ------
@@ -47,15 +49,16 @@ The wonderful folks on #Perl6 [irc](http://webchat.freenode.net/?channels=perl6&
 CONTENTS
 --------
 
-1. [Introduction](#introduction)
-2. [Tutorial](#tutorial)
-3. [File Spacing](#file-spacing)
-4. [Line Numbering](#line-numbering)
-5. [Calculations](#calculations) (in progress)
-6. [String Creation and Array Creation](#string-creation-and-array-creation)
-7. [Text Conversion and Substitution](#text-conversion-and-substitution)
-8. [Selective Line Printing](#selective-line-printing)
-9. [Converting for Windows](#converting-for-windows)
+1.  [Introduction](#introduction)
+2.  [Tutorial](#tutorial)
+3.  [File Spacing](#file-spacing)
+4.  [Line Numbering](#line-numbering)
+5.  [Calculations](#calculations) (in progress)
+6.  [String Creation and Array Creation](#string-creation-and-array-creation)
+7.  [Text Conversion and Substitution](#text-conversion-and-substitution)
+8.  [Selective Line Printing](#selective-line-printing)
+9.  [Converting for Windows](#converting-for-windows)
+10. [Further reading](#further-reading)
 
 
 INTRODUCTION
@@ -138,8 +141,8 @@ Add a blank line before every line
 
 Remove all blank lines
 
-    perl6 -ne '.print if /\S/' example.txt
-    perl6 -ne '.print if .chars' example.txt
+    perl6 -ne '.say if /\S/' example.txt
+    perl6 -ne '.say if .chars' example.txt
 
 Remove all consecutive blank lines, leaving just one
 
@@ -151,12 +154,12 @@ LINE NUMBERING
 
 Number all lines in a file
 
-    perl6 -ne 'print ++$a ~ " $_"' example.txt
+    perl6 -ne 'say "{++$} $_"' example.txt
     perl6 -ne 'say $*ARGFILES.ins ~ " $_"' example.txt
 
 Number only non-empty lines in a file
 
-    perl6 -pe '$_ = ++$a ~ " $_" if /\S/' example.txt
+    perl6 -ne 'say "{++$} $_" if /\S/' example.txt
 
 Number all lines but print line numbers only for non-empty lines
 
@@ -335,11 +338,11 @@ STRING CREATION AND ARRAY CREATION
 
 Generate and print the alphabet
 
-    perl6 -e 'print "a".."z"'
+    perl6 -e 'say "a".."z"'
 
 Generate and print all the strings from "a" to "zz"
 
-    perl6 -e 'print "a".."zz"'
+    perl6 -e 'say "a".."zz"'
 
 Convert a integer to hex
 
@@ -370,7 +373,7 @@ Create a string of specific length
 
 Generate and print an array of even numbers from 1 to 100
 
-    perl6 -e perl6 -e '(grep { $_ % 2 == 0 }, 1..100).say'
+    perl6 -e '(1..100).grep(* %% 2).say'
 
 Find the length of the string
 
@@ -386,7 +389,7 @@ TEXT CONVERSION AND SUBSTITUTION
 
 ROT 13 a file
 
-    perl6 -ne 'say .trans(("A".."Z", "a".."z") => ("N".."Z", "A".."M", "n".."z", "a".."m"))' example.txt
+    perl6 -pe 'tr/A..Za..z/N..ZA..Mn..za..m/' example.txt
 
 Base64 encode a string
 
@@ -414,10 +417,12 @@ HTML-decode a string
 
 Convert all text to uppercase
 
+    perl6 -pe '.=uc' example.txt
     perl6 -ne 'say .uc' example.txt
 
 Convert all text to lowercase
 
+    perl6 -pe '.=lc' example.txt
     perl6 -ne 'say .lc' example.txt
 
 Uppercase only the first word of each line
@@ -426,6 +431,7 @@ Uppercase only the first word of each line
 
 Invert the letter case
 
+    perl6 -pe 'tr/a..zA..Z/A..Za..z/' example.txt
     perl6 -ne 'say tr/a..zA..Z/A..Za..z/.after' example.txt
 
 Camel case each line
@@ -454,12 +460,11 @@ Convert DOS/Windows newlines to UNIX newlines
 
 Find and replace all instances of "ut" with "foo" on each line
 
-    perl6 -ne 'say .subst(/ut/, q/foo/, :g)' example.txt
-    perl6 -pe '$_ = .subst(/ut/, q/foo/, :g)' example.txt
+    perl6 -pe 's:g/ut/foo/' example.txt
 
 Find and replace all instances of "ut" with "foo" on each line that contains "lorem"
 
-    perl6 -ne '.subst(/ut/, q/foo/).say if /Lorem/' example.txt
+    perl6 -pe 's:g/ut/foo/ if /Lorem/' example.txt
 
 
 SELECTIVE LINE PRINTING
@@ -574,3 +579,8 @@ Becomes:
 
 Stick to this rule and remember not to use single quotes anywhere in the one-liner, and the code will run fine on Windows cmd.exe and PowerShell.
 
+
+FURTHER READING
+---------------
+
+There are many Perl 6 examples on [Rosetta code](http://rosettacode.org/wiki/Perl_6)
