@@ -297,11 +297,11 @@ Calculate greatest common divisor
 
 Calculate GCM of numbers 20 and 35 using Euclid's algorithm
 
-    perl6 -e 'say (35, 20, *%* ... 0)[*-2]'
+    perl6 -e 'say (20, 35, *%* ... 0)[*-2]'
 
-Calculate least common multiple (LCM) of numbers 35, 20
+Calculate least common multiple (LCM) of 20 and 35
 
-    perl6 -e 'say 35 lcm 20'
+    perl6 -e 'say 20 lcm 35'
 
 Calculate LCM of 20 and 35 using Euclid's algorithm: `n*m/gcd(n,m)`
 
