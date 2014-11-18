@@ -31,6 +31,7 @@ CONTRIBUTORS
 * FROGGS
 * Larry Wall
 * Matt Oates
+* Mouq
 * Salve J Nilsen
 * Moritz Lenz
 * timotimo
@@ -52,7 +53,7 @@ CONTENTS
 4. [Line Numbering](#line-numbering)
 5. [Calculations](#calculations) (in progress)
 6. [String Creation and Array Creation](#string-creation-and-array-creation)
-7. [Text Conversion and Substitution](#text-conversion-and-substitution) (in progress)
+7. [Text Conversion and Substitution](#text-conversion-and-substitution)
 8. [Selective Line Printing](#selective-line-printing)
 9. [Converting for Windows](#converting-for-windows)
 
@@ -421,8 +422,7 @@ Convert all text to lowercase
 
 Uppercase only the first word of each line
 
-    perl -nle 'print ucfirst lc'
-    perl -nle 'print "\u\L$_"'
+    perl6 -ne 'say s/(\w+){}/{$0.uc}/' example.txt
 
 Invert the letter case
 
@@ -430,8 +430,7 @@ Invert the letter case
 
 Camel case each line
 
-    perl -ple 's/(\w+)/\u$1/g'
-    perl -ple 's/(?<!['])(\w+)/\u\1/g'
+    perl6 -ne 'say .wordcase' example.txt
 
 Strip leading whitespace (spaces, tabs) from the beginning of each line
 
