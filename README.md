@@ -160,7 +160,7 @@ Number all lines in a file
 
 Number only non-empty lines in a file
 
-    perl6 -ne 'say "{++$} $_" if /\S/' example.txt
+    perl6 -pe '$_ = "{++$} $_" if /\S/' example.txt
 
 Number all lines but print line numbers only for non-empty lines
 
@@ -337,11 +337,11 @@ STRING CREATION AND ARRAY CREATION
 
 Generate and print the alphabet
 
-    perl6 -e 'say "a".."z"'
+    perl6 -e '.say for "a".."z"'
 
 Generate and print all the strings from "a" to "zz"
 
-    perl6 -e 'say "a".."zz"'
+    perl6 -e '.say for "a".."zz"'
 
 Convert a integer to hex
 
