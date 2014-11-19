@@ -186,7 +186,7 @@ CALCULATIONS
 
 Check if a number is a prime
 
-    perl6 -ne 'say "$_ is prime" if $_.Int.is-prime'
+    perl6 -e 'say "7 is prime" if 7.Int.is-prime'
 
 Print the sum of all the fields on a line
 
@@ -319,13 +319,13 @@ Find and print all permutations of a list
 Generate the power set
 
     perl6 -e '.say for <1 2 3>.combinations'
-    
+
 Convert an IP address to unsigned integer
 
     perl6 -e 'say :256["127.0.0.1".comb(/\d+/)]'
     perl6 -e 'say +":256[{q/127.0.0.1/.subst(:g,/\./,q/,/)}]"'
-    perl6 -e 'say Buf.new(+«"127.0.0.1".split(".")).unpack("N")' 
-    
+    perl6 -e 'say Buf.new(+«"127.0.0.1".split(".")).unpack("N")'
+
 Convert an unsigned integer to an IP address
 
     perl6 -e 'say join ".", @(pack "N", 2130706433)'
@@ -504,11 +504,11 @@ Print lines that are 80 chars or longer
 
 Print only line 2
 
-    perl6 -ne '.print if ++$a == 2' example.txt
+    perl6 -ne '.print if ++$ == 2' example.txt
 
 Print all lines except line 2
 
-    perl6 -pe 'next if ++$a == 2' example.txt 
+    perl6 -pe 'next if ++$ == 2' example.txt
 
 Print all lines 1 to 3
 
@@ -566,7 +566,7 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
 CONVERTING FOR WINDOWS
 ----------------------
 
-Running these one liners on Windows is a piece of cake once you know the rules of the road. The cardinal rule is: replace the outer single-quotes with double quotes and use quoting operators `q//` and `qq//` (interpolated) when quoting strings inside a one liner.
+Running these one liners on Windows is a piece of cake once you know the rules of the road. The cardinal rule is: replace the outer single-quotes with double quotes and use the interpolated quoting operator `qq//` for quoting strings inside a one liner. For non-interpolated quoting, you can use single-quotes.
 
 Thus this one liner to prepend a blank line to every line in `example.txt`:
 
@@ -574,9 +574,16 @@ Thus this one liner to prepend a blank line to every line in `example.txt`:
 
 Becomes:
 
-    perl6 -pe "say q//" example.txt
+    perl6 -pe "say ''" example.txt
 
-Stick to this rule and remember not to use single quotes anywhere in the one-liner, and the code will run fine on Windows cmd.exe and PowerShell.
+And this one with an interpolated string:
+
+    perl6 -ne 'say "{++$} $_" if /\S/' example.txt
+
+Becomes:
+
+    perl6 -ne "say qq/{++$} $_/ if /\S/" example.txt
+
 
 
 FURTHER READING
