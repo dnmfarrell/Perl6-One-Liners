@@ -1,9 +1,7 @@
 Perl 6 One Liners
 =================
 
-This book is a work in progress, converting Perl 5 one liners to Perl 6. I hope you find it interesting, maybe even useful! If you would like to contribute either bugs, new or improved regexes; issues and pull requests are welcome!
-
-You can test the one liners on the accompanying `example.txt` file included in this repo.
+This book is a work in progress. I hope you find it interesting, maybe even useful! If you would like to contribute, feedback, issues and new or improved regexes are all welcome!
 
 
 AUTHOR
@@ -54,22 +52,25 @@ CONTENTS
 2.  [Tutorial](#tutorial)
 3.  [File Spacing](#file-spacing)
 4.  [Line Numbering](#line-numbering)
-5.  [Calculations](#calculations) (in progress)
+5.  [Calculations](#calculations)
 6.  [String Creation and Array Creation](#string-creation-and-array-creation)
 7.  [Text Conversion and Substitution](#text-conversion-and-substitution)
 8.  [Selective Line Printing](#selective-line-printing)
 9.  [Converting for Windows](#converting-for-windows)
-10. [Further reading](#further-reading)
+10. [WWW](#www) (in progress)
+11. [Further reading](#further-reading)
 
 
 INTRODUCTION
 ------------
 
-One thing that sets Perl apart from other languages is the ability to write small programs in a single line of code, known as a "one liner". It's faster to type a program directly into the terminal than to write a throwaway script. And one liners are powerful too; they're fully fledged Perl programs, can load external libraries but also integrate into the terminal. You can pipe data in or out of a one liner.
+One thing that sets Perl apart from other languages is the ability to write small programs in a single line of code, known as a "one liner". It's often faster to type a program directly into the terminal than to write a throwaway script. And one liners are powerful too; they're fully fledged programs which can load external libraries but also integrate into the terminal. You can pipe data in or out of a one liner.
 
-Like Perl 5, Perl 6 supports one liners. And just like Perl 6 cleaned up Perl 5's warts elsewhere, the one liner syntax is also better. It's cleaner with fewer special variables and options to memorize. This book provides many useful examples of Perl 6 one liners that can do everything from finding duplicate lines in a file to translating numbers into hexadecimal notation. Although Perl 6 has fewer special variables, because of it's advanced object oriented syntax most of the one liners are shorter in Perl 6 than their Perl 5 equivalent.
+Like Perl 5, Perl 6 supports one liners. And just like Perl 6 cleaned up Perl 5's warts elsewhere, the one liner syntax is also better. It's cleaner with fewer special variables and options to memorize. This book provides many useful examples of Perl 6 one liners that can do everything from finding duplicate lines in a file to running a web server. Although Perl 6 has fewer special variables, because of its advanced object oriented syntax most of the one liners are shorter in Perl 6 than their Perl 5 equivalent.
 
-Programming with one liners is just one paradigm that Perl 6 excels in. Check out the [perl6.org](http://perl6.org) website for the official documentation.
+This book can be read in a number of ways. If you're new to one liners, start with the (tutorial)[#tutorial]. It walks you through the core concepts of a one liner; don't worry - it's really very simple once you get the hang of it. If you're familiar with Perl, Bash or Sed/Awk, you can probably get stuck in to the examples right away. Feel free to skim and scan the material for whatever piques your interest. If you don't understand some code, try it out in the terminal! Included in this repo is the ubiquitous `example.txt` file which is used in many of the one liners.
+
+Programming with one liners is just one paradigm that Perl 6 excels in. There's a beauty in the brevity of this code, but whilst you're learning a productive skill, remember that you're also learning the ropes of a powerful new programming language. Check out the [perl6.org](http://perl6.org) website for the official documentation.
 
 
 TUTORIAL
@@ -79,7 +80,7 @@ To get started with one liners, all you really need to understand is the `-e` op
 
     perl6 -e 'say "Hello, World!"'
 
-Let's break down this code. `perl6` invokes the Perl 6 program, `-e` tells Perl 6 to execute and `'say "Hello, World!"'` is the program. Every program must be surrounded in single quotes (except on Windows, see [Converting for Windows](#converting-for-windows)). To run the one-liner, just type it into the terminal:
+Let's step through this code. `perl6` invokes the Perl 6 program, `-e` tells Perl 6 to execute and `'say "Hello, World!"'` is the program. Every program must be surrounded in single quotes (except on Windows, see [Converting for Windows](#converting-for-windows)). To run the one-liner, just type it into the terminal:
 
     > perl6 -e 'say "Hello, World!"'
     Hello, World!
@@ -110,19 +111,23 @@ The `-n` and `-p` options are really useful. There are lots of example one-liner
 
 The final thing you should know is how to load a module. This is really powerful as you can extend Perl 6's capabilities by importing external libraries. The `-M` switch stands for load module:
 
-    perl6 -M URI::Encode -e 'say encode_uri("www.example.com/10 ways to crush it with Perl 6")'
+    perl6 -M URI::Encode -e 'say encode_uri("example.com/10 ways to crush it with Perl 6")'
 
-This: `-M URI::Encode` loads the URI::Encode module, which exports the `encode_uri` subroutine.
+This: `-M URI::Encode` loads the URI::Encode module, which exports the `encode_uri` subroutine. You can use `-M` more than once if you want to load more than one module:
+
+    perl6 -M URI::Encode -M URI e- '<your code here>'
 
 What if you have a local module, that is not installed yet? Easy, just pass use the `-I` switch to include the directory:
 
-    perl6 -I lib -M URI::Encode -e 'say encode_uri("www.example.com/10 ways to crush it with Perl 6")'
+    perl6 -I lib -M URI::Encode -e '<your code here>'
 
 Now Perl 6 will search for `URI::Encode` in `lib` as well as the standard install locations.
 
-To get a list of Perl 6 command line switches, use the `-h` option:
+To get a list of Perl 6 command line switches, use the `-h` option for help:
 
     perl6 -h
+
+This prints a nice summary of the available options.
 
 
 FILE SPACING
@@ -563,27 +568,48 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
     perl6 -ne '.words[0].say' example.txt
 
 
+WWW
+---
+
+Launch a simple web server
+
+    perl6 -M HTTP::Server::Simple -e 'HTTP::Server::Simple.new.run'
+
+
 CONVERTING FOR WINDOWS
 ----------------------
 
-Running these one liners on Windows is a piece of cake once you know the rules of the road. The cardinal rule is: replace the outer single-quotes with double quotes and use the interpolated quoting operator `qq//` for quoting strings inside a one liner. For non-interpolated quoting, you can use single-quotes.
+Running one liners on Windows is a piece of cake once you know the rules of the road. They work on cmd.exe and PowerShell. The cardinal rule is: replace the outer single-quotes with double quotes and use the interpolated quoting operator `qq//` for quoting strings inside a one liner. For non-interpolated quoting, you can use single-quotes. Let's look at some examples.
 
-Thus this one liner to prepend a blank line to every line in `example.txt`:
+Here's a simple one liner to print the time:
 
-    perl6 -pe 'say ""' example.txt
+    perl6 -e 'say DateTime.now'
 
-Becomes:
+To run on Windows, we just replace the single quotes with double quotes:
 
-    perl6 -pe "say ''" example.txt
+    perl6 -e "say DateTime.now"
 
-And this one with an interpolated string:
+This one liner appends a newline to every line in a file, using an interpolated string:
 
-    perl6 -ne 'say "{++$} $_" if /\S/' example.txt
+    perl6 -pe '$_ ~= "\n"' example.txt
 
-Becomes:
+On Windows this should be written as:
 
-    perl6 -ne "say qq/{++$} $_/ if /\S/" example.txt
+    perl6 -pe "$_ ~= qq/\n/" example.txt
 
+In this case we want to interpolate `\n` as a newline and not literally add a backslash and an "n" to the line, so we have to use `qq`. But you can usually use single-quotes within a one liner so:
+
+    perl6 -e 'say "Hello, World!"'
+
+Can be written as:
+
+    perl6 -e "say 'hello, World!'"
+
+Simple output redirection works like it does on Unix-based systems. This one liner prints an ASCII character index table to a file using `>`:
+
+    perl6 -e "say .chr ~ ' ' ~ $_ for 0..255" > ascii_codes.txt
+
+When using `>` if the file doesn't exist, it will be created. If the file does exist, it will be overwritten. If you'd rather append to a file, use `>>`.
 
 
 FURTHER READING
