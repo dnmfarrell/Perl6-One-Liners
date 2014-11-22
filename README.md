@@ -107,6 +107,10 @@ The `-p` option is just like `-n` except that it will automatically print `$_`. 
 
     perl6 -pe '$_ = .uc' /path/to/file.txt
 
+which can take benefit to the "c cryptic operators" alike notation so you can just write 
+
+    perl6 -pe.=uc /path/to/file.txt
+
 The `-n` and `-p` options are really useful. There are lots of example one-liners that use them in this book.
 
 The final thing you should know is how to load a module. This is really powerful as you can extend Perl 6's capabilities by importing external libraries. The `-M` switch stands for load module:
