@@ -290,7 +290,7 @@ Print date 14 months, 9 days and 7 seconds ago
 
 Prepend timestamps to stdout (GMT, localtime)
 
-    tail -MDateTime::TimeZone -f logfile | perl6 -ne 'say to-timezone("GMT",DateTime.now) ~ "\t$_"'
+    tail -f logfile | perl6 -MDateTime::TimeZone -ne 'say to-timezone("GMT",DateTime.now) ~ "\t$_"'
     tail -f logfile | perl6 -ne 'say DateTime.now ~ "\t$_"'
 
 Calculate factorial of 5
