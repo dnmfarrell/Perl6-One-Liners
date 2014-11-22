@@ -477,6 +477,10 @@ Find and replace all instances of "ut" with "foo" on each line that contains "lo
 
     perl6 -pe 's:g/ut/foo/ if /Lorem/' example.txt
 
+Convert a file to JSON
+
+    perl6 -M JSON::Tiny -e 'say to-json(lines)' example.txt
+
 
 SELECTIVE LINE PRINTING
 -----------------------
@@ -575,8 +579,30 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
     perl6 -ne '.words[0].say' example.txt
 
 
+DATA TRANSFORMATION WITH PIPES
+------------------------------
+
+Perl 6 progams integrate straight into the command line. You can pipe data in-to and out-of a one liner by using the pipe `|` character. For piping data in, Perl 6 automatically sets STDIN to `$*IN`. Just like with files, data piped in can be looped through using `-n` and is also available in `lines`. To pipe data out of a one liner just use `print` or `say`.
+
+JSON-encode a list of all files in the current directory
+
+    ls | perl6 -M JSON::Tiny -e 'say to-json(lines)'
+
+
 WWW
 ---
+
+Download a webpage
+
+    perl6 -M HTTP::UserAgent -e 'say HTTP::UserAgent.new.get("google.com").content
+
+Download a webpage and strip out the HTML
+
+    wget -O - "http://perl6.org" | perl6 -ne 's:g/\<.+?\>//.say'
+
+Download a webpage, strip out and decode the HTML
+
+    wget -O - "http://perl6.org" | perl6 -MHTML::Strip -ne 'strip_html($_).say'
 
 Launch a simple web server
 
@@ -586,7 +612,7 @@ Launch a simple web server
 CONVERTING FOR WINDOWS
 ----------------------
 
-Running one liners on Windows is a piece of cake once you know the rules of the road. They work on cmd.exe and PowerShell. The cardinal rule is: replace the outer single-quotes with double quotes and use the interpolated quoting operator `qq//` for quoting strings inside a one liner. For non-interpolated quoting, you can use single-quotes. Let's look at some examples.
+Running one liners on Windows is a piece of cake once you know the rules of the road. One liners work on both cmd.exe and PowerShell. The cardinal rule is: replace the outer single-quotes with double quotes and use the interpolated quoting operator `qq//` for quoting strings inside a one liner. For non-interpolated quoting, you can use single-quotes. Let's look at some examples.
 
 Here's a simple one liner to print the time:
 
