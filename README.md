@@ -107,9 +107,12 @@ The `-p` option is just like `-n` except that it will automatically print `$_`. 
 
     perl6 -pe '$_ = .uc' /path/to/file.txt
 
-which can take benefit to the "c cryptic operators" alike notation so you can just write 
+Or two shorter versions that do the same thing:
 
-    perl6 -pe.=uc /path/to/file.txt
+    perl6 -pe '.=uc' /path/to/file.txt
+    perl6 -pe .=uc /path/to/file.txt
+
+In the second example we were able to completely remove the surrounding single quotes. This is a rare scenario, but in the event your one liner has no spaces and no sigils or quotes in it, you can usually remove the outer quotes.
 
 The `-n` and `-p` options are really useful. There are lots of example one-liners that use them in this book.
 
