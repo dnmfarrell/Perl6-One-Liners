@@ -56,10 +56,11 @@ CONTENTS
 5.  [Calculations](#calculations)
 6.  [String Creation and Array Creation](#string-creation-and-array-creation)
 7.  [Text Conversion and Substitution](#text-conversion-and-substitution)
-8.  [Selective Line Printing](#selective-line-printing)
-9.  [Converting for Windows](#converting-for-windows)
-10. [WWW](#www) (in progress)
-11. [Further reading](#further-reading)
+8.  [Text Analysing](#text-analysing)
+9.  [Selective Line Printing](#selective-line-printing)
+10. [Converting for Windows](#converting-for-windows)
+11. [WWW](#www) (in progress)
+12. [Further reading](#further-reading)
 
 
 INTRODUCTION
@@ -493,7 +494,7 @@ Print unique n-grams
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Set.sort'
     
-Print ocurrence counts of n-grams
+Print occurrence counts of n-grams
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Bag.sort.join("\n")'
     
