@@ -500,7 +500,7 @@ Print occurrence counts of n-grams
     
 Print occurence counts of words (1-grams)
 
-    perl6 -e 'say lines.comb(/\w+/).map({[~] @$_}).Bag.sort.join("\n")' example.txt
+    perl6 -e 'say lines[0].words.map({[~] @$_}).Bag.sort.join("\n")' example.txt
 
 Print Dice similarity coefficient based on sets of 1-grams
 
@@ -524,7 +524,7 @@ Build an index of characters within a string and print it
      
 Build an index of words within a line and print it
 
-     perl6 -e '({}.push: %(lines[0].comb(/\w+/).pairs).invert).sort.join("\n").say' example.txt
+     perl6 -e '({}.push: %(lines[0].words.pairs).invert).sort.join("\n").say' example.txt
 
 
 SELECTIVE LINE PRINTING
