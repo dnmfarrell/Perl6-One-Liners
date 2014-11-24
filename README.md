@@ -27,6 +27,7 @@ CONTRIBUTORS
 
 * Alexander Moquin
 * FROGGS
+* Helmut Wollmersdorfer
 * japhb
 * Larry Wall
 * Matt Oates
@@ -55,10 +56,11 @@ CONTENTS
 5.  [Calculations](#calculations)
 6.  [String Creation and Array Creation](#string-creation-and-array-creation)
 7.  [Text Conversion and Substitution](#text-conversion-and-substitution)
-8.  [Selective Line Printing](#selective-line-printing)
-9.  [Converting for Windows](#converting-for-windows)
-10. [WWW](#www) (in progress)
-11. [Further reading](#further-reading)
+8.  [Text Analysing](#text-analysing)
+9.  [Selective Line Printing](#selective-line-printing)
+10. [Converting for Windows](#converting-for-windows)
+11. [WWW](#www) (in progress)
+12. [Further reading](#further-reading)
 
 
 INTRODUCTION
@@ -480,6 +482,49 @@ Find and replace all instances of "ut" with "foo" on each line that contains "lo
 Convert a file to JSON
 
     perl6 -M JSON::Tiny -e 'say to-json(lines)' example.txt
+
+TEXT ANALYSING
+--------------
+
+Print n-grams of a string
+
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_})'
+    
+Print unique n-grams
+
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Set.sort'
+    
+Print occurrence counts of n-grams
+
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Bag.sort.join("\n")'
+    
+Print occurence counts of words (1-grams)
+
+    perl6 -e 'say lines[0].words.map({[~] @$_}).Bag.sort.join("\n")' example.txt
+
+Print Dice similarity coefficient based on sets of 1-grams
+
+    perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb)/($a.comb.Set + $b.comb.Set)'
+    
+Print Jaccard similarity coefficient based on 1-grams
+
+     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb) / ($a.comb (|) $b.comb)'
+    
+Print overlap coefficient based on 1-grams
+
+     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb) / ($a.comb.Set.elems, $b.comb.Set.elems).min'
+
+Print cosine similarity based on 1-grams
+
+     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb)/($a.comb.Set.elems.sqrt*$b.comb.Set.elems.sqrt)'
+
+Build an index of characters within a string and print it
+
+     perl6 -e 'say {}.push: %("banana".comb.pairs).invert'
+     
+Build an index of words within a line and print it
+
+     perl6 -e '({}.push: %(lines[0].words.pairs).invert).sort.join("\n").say' example.txt
 
 
 SELECTIVE LINE PRINTING
