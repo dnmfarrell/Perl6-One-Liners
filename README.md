@@ -41,7 +41,7 @@ CONTRIBUTORS
 THANKS
 ------
 
-Adapted from Peteris Krumins [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl 5 one liners.
+Inspired by Peteris Krumins Perl 5 examples [file](http://www.catonmat.net/download/perl1line.txt). He literally wrote the [book](http://www.nostarch.com/perloneliners) on Perl 5 one liners.
 
 The wonderful folks on #Perl6 [irc](http://webchat.freenode.net/?channels=perl6&nick=).
 
@@ -56,11 +56,11 @@ CONTENTS
 5.  [Calculations](#calculations)
 6.  [String Creation and Array Creation](#string-creation-and-array-creation)
 7.  [Text Conversion and Substitution](#text-conversion-and-substitution)
-8.  [Text Analysing](#text-analysing)
+8.  [Text Analysis](#text-analysis)
 9.  [Selective Line Printing](#selective-line-printing)
-10. [Converting for Windows](#converting-for-windows)
+10. [Data Transformation With Pipes](data-transformation-with-pipes) (in progress)
 11. [WWW](#www) (in progress)
-12. [Further reading](#further-reading)
+12. [Converting for Windows](#converting-for-windows)
 
 
 INTRODUCTION
@@ -483,21 +483,26 @@ Convert a file to JSON
 
     perl6 -M JSON::Tiny -e 'say to-json(lines)' example.txt
 
-TEXT ANALYSING
---------------
+Pick 5 random words from each line of a file
+
+    perl6 -ne 'say .words.pick(5)' example.txt
+
+
+TEXT ANALYSIS
+-------------
 
 Print n-grams of a string
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_})'
-    
+
 Print unique n-grams
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Set.sort'
-    
+
 Print occurrence counts of n-grams
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Bag.sort.join("\n")'
-    
+
 Print occurence counts of words (1-grams)
 
     perl6 -e 'say lines[0].words.map({[~] @$_}).Bag.sort.join("\n")' example.txt
@@ -505,11 +510,11 @@ Print occurence counts of words (1-grams)
 Print Dice similarity coefficient based on sets of 1-grams
 
     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb)/($a.comb.Set + $b.comb.Set)'
-    
+
 Print Jaccard similarity coefficient based on 1-grams
 
      perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb) / ($a.comb (|) $b.comb)'
-    
+
 Print overlap coefficient based on 1-grams
 
      perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb) / ($a.comb.Set.elems, $b.comb.Set.elems).min'
@@ -521,7 +526,7 @@ Print cosine similarity based on 1-grams
 Build an index of characters within a string and print it
 
      perl6 -e 'say {}.push: %("banana".comb.pairs).invert'
-     
+ 
 Build an index of words within a line and print it
 
      perl6 -e '({}.push: %(lines[0].words.pairs).invert).sort.join("\n").say' example.txt
@@ -633,6 +638,10 @@ JSON-encode a list of all files in the current directory
 
     ls | perl6 -M JSON::Tiny -e 'say to-json(lines)'
 
+Print a random sample of approx 5% of lines in a file
+
+    perl6 -ne '.say if 1.rand <= 0.05' /usr/share/dict/words
+
 
 WWW
 ---
@@ -687,10 +696,5 @@ Simple output redirection works like it does on Unix-based systems. This one lin
 
     perl6 -e "say .chr ~ ' ' ~ $_ for 0..255" > ascii_codes.txt
 
-When using `>` if the file doesn't exist, it will be created. If the file does exist, it will be overwritten. If you'd rather append to a file, use `>>`.
+When using `>` if the file doesn't exist, it will be created. If the file does exist, it will be overwritten. If you'd rather append to a file, use `>>` instead.
 
-
-FURTHER READING
----------------
-
-There are many Perl 6 examples on [Rosetta code](http://rosettacode.org/wiki/Perl_6)
