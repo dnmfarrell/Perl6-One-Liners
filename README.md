@@ -641,6 +641,13 @@ Print a random sample of approx 5% of lines in a file
 
     perl6 -ne '.say if 1.rand <= 0.05' /usr/share/dict/words
 
+Color conversion, HTML to RGB
+
+    echo "#ffff00" | perl6 -ne '.comb(/\w\w/).map({:16($_)}).say'
+
+Color conversion, RGB to HTML
+
+    echo "#ffff00" | perl6 -ne '.comb(/\w\w/).map({:16($_)}).say'
 
 WWW
 ---

@@ -1,5 +1,5 @@
 use Test;
-plan 147;
+plan 140;
 is qq:x{perl6 -ce 'say "Hello, World!"'}, "Syntax OK\n";
 is q:x{perl6 -ce '$_ ~= "\n"' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce '$_ ~= "\n" x 4' example.txt}, "Syntax OK\n";
@@ -134,9 +134,12 @@ is q:x{perl6 -ce '/^\d+$/ && .say' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce 'next if ! $_.match(/^\d+$/)' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce '.say if ++$ % 2' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce '.say if ! (++$ % 2)' example.txt}, "Syntax OK\n";
-is q:x{perl6 -ce 'state %l;.say if ++%l{$_}==2' example.txt}, "Syntax OK\n";
-is q:x{perl6 -ce 'state %l;.say if ++%l{$_}==1' example.txt}, "Syntax OK\n";
+#is q:x{perl6 -ce 'state %l;.say if ++%l{$_}==2' example.txt}, "Syntax OK\n";
+#is q:x{perl6 -ce 'state %l;.say if ++%l{$_}==1' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce '.words[0].say' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce '.say if 1.rand <= 0.05' /usr/share/dict/words}, "Syntax OK\n";
 is q:x{perl6 -M HTTP::UserAgent -ce 'say HTTP::UserAgent.new.get("google.com").content'}, "Syntax OK\n";
 is q:x{perl6 -M HTTP::Server::Simple -ce 'HTTP::Server::Simple.new.run'}, "Syntax OK\n";
+is q:x{perl6 -ce '.comb(/\w\w/).map({:16($_)}).say'}, "Syntax OK\n";
+is q:x{perl6 -ce '.comb(/\w\w/).map({:16($_)}).say'}, "Syntax OK\n";
+
