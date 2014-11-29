@@ -508,27 +508,27 @@ Print occurence counts of words (1-grams)
 
 Print Dice similarity coefficient based on sets of 1-grams
 
-    perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb)/($a.comb.Set + $b.comb.Set)'
+    perl6 -e 'my $a="banana".comb;my $b="anna".comb;say ($a (&) $b)/($a.Set + $b.Set)'
 
 Print Jaccard similarity coefficient based on 1-grams
 
-     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb) / ($a.comb (|) $b.comb)'
+    perl6 -e 'my $a="banana".comb;my $b="anna".comb;say ($a (&) $b) / ($a (|) $b)'
 
 Print overlap coefficient based on 1-grams
 
-     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb) / ($a.comb.Set.elems, $b.comb.Set.elems).min'
+    perl6 -e 'my $a="banana".comb;my $b="anna".comb;say ($a (&) $b)/($a.Set.elems,$b.Set.elems).min'
 
 Print cosine similarity based on 1-grams
 
-     perl6 -e 'my $a="banana";my $b="anna";say ($a.comb (&) $b.comb)/($a.comb.Set.elems.sqrt*$b.comb.Set.elems.sqrt)'
+    perl6 -e 'my $a="banana".comb;my $b="anna".comb;say ($a (&) $b)/($a.Set.elems.sqrt*$b.Set.elems.sqrt)'
 
 Build an index of characters within a string and print it
 
-     perl6 -e 'say {}.push: %("banana".comb.pairs).invert'
+    perl6 -e 'say {}.push: %("banana".comb.pairs).invert'
  
 Build an index of words within a line and print it
 
-     perl6 -e '({}.push: %(lines[0].words.pairs).invert).sort.join("\n").say' example.txt
+    perl6 -e '({}.push: %(lines[0].words.pairs).invert).sort.join("\n").say' example.txt
 
 
 SELECTIVE LINE PRINTING
