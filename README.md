@@ -344,7 +344,6 @@ Convert an unsigned integer to an IP address
 
     perl6 -e 'say join ".", @(pack "N", 2130706433)'
     perl6 -e 'say join ".", map { ((2130706433+>(8*$_))+&0xFF) }, (3...0)'
-    perl6 -e 'say join ",", @(unpack "N", "127.0.0.1")' 
 
 STRING CREATION AND ARRAY CREATION
 ----------------------------------
