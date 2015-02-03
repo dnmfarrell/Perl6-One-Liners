@@ -124,7 +124,7 @@ The final thing you should know is how to load a module. This is really powerful
 
 This: `-M URI::Encode` loads the URI::Encode module, which exports the `encode_uri` subroutine. You can use `-M` more than once if you want to load more than one module:
 
-    perl6 -M URI::Encode -M URI e- '<your code here>'
+    perl6 -M URI::Encode -M URI -e '<your code here>'
 
 What if you have a local module, that is not installed yet? Easy, just pass use the `-I` switch to include the directory:
 
