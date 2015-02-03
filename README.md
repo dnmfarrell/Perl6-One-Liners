@@ -262,7 +262,7 @@ Print the total number of lines that match a pattern
 
 Print the number PI to n decimal places (e.g. 10)
 
-    perl6 -e 'say pi.fmt("%.10f");
+    perl6 -e 'say pi.fmt("%.10f");'
 
 Print the number PI to 15 decimal places
 
@@ -270,7 +270,7 @@ Print the number PI to 15 decimal places
 
 Print the number E to n decimal places (e.g. 10)
 
-    perl6 -e 'say e.fmt("%.10f");
+    perl6 -e 'say e.fmt("%.10f");'
 
 Print the number E to 15 decimal places
 
@@ -654,7 +654,7 @@ WWW
 
 Download a webpage
 
-    perl6 -M HTTP::UserAgent -e 'say HTTP::UserAgent.new.get("google.com").content
+    perl6 -M HTTP::UserAgent -e 'say HTTP::UserAgent.new.get("google.com").content'
 
 Download a webpage and strip out the HTML
 
