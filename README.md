@@ -99,7 +99,7 @@ This program prints every line in `/path/to/file.txt`. You may know that `$_` is
     perl6 -e '.say for (lines)' /path/to/file.txt
     perl6 -e '.say for lines' /path/to/file.txt
 
-Just like `$_` is the default variable, methods called on the default variable can omit the variable referece. They become default methods. So `$_.say` becomes `.say`. This brevity pays off with one liners - it's less typing!
+Just like `$_` is the default variable, methods called on the default variable can omit the variable reference. They become default methods. So `$_.say` becomes `.say`. This brevity pays off with one liners - it's less typing!
 
 The `-n` option changes the behavior of the program: it executes the code once for every line of the file. So uppercase and print every line of `/path/to/file.txt` you can type:
 
@@ -502,7 +502,7 @@ Print occurrence counts of n-grams
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Bag.sort.join("\n")'
 
-Print occurence counts of words (1-grams)
+Print occurrence counts of words (1-grams)
 
     perl6 -e 'say lines[0].words.map({[~] @$_}).Bag.sort.join("\n")' example.txt
 
@@ -631,7 +631,7 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
 DATA TRANSFORMATION WITH PIPES
 ------------------------------
 
-Perl 6 progams integrate straight into the command line. You can pipe data in-to and out-of a one liner by using the pipe `|` character. For piping data in, Perl 6 automatically sets STDIN to `$*IN`. Just like with files, data piped in can be looped through using `-n` and is also available in `lines`. To pipe data out of a one liner just use `print` or `say`.
+Perl 6 programs integrate straight into the command line. You can pipe data in-to and out-of a one liner by using the pipe `|` character. For piping data in, Perl 6 automatically sets STDIN to `$*IN`. Just like with files, data piped in can be looped through using `-n` and is also available in `lines`. To pipe data out of a one liner just use `print` or `say`.
 
 JSON-encode a list of all files in the current directory
 
