@@ -26,6 +26,7 @@ CONTRIBUTORS
 ------------
 
 * Alexander Moquin
+* Bruce Gray
 * FROGGS
 * Helmut Wollmersdorfer
 * japhb
@@ -35,6 +36,7 @@ CONTRIBUTORS
 * Mouq
 * Salve J Nilsen
 * Sam S
+* Skids
 * timotimo
 
 
@@ -551,7 +553,7 @@ Print the last line of a file (emulate tail -1)
 
 Print the last 5 lines of a file (emulate tail -5)
 
-    perl6 -e '.say for lines[*-5..^*]' example.txt
+    perl6 -e '.say for lines[*-5..*]' example.txt
 
 Print only lines that contain vowels
 
