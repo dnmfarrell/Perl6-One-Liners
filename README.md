@@ -99,7 +99,7 @@ This program prints every line in `/path/to/file.txt`. You may know that `$_` is
     perl6 -e '.say for (lines)' /path/to/file.txt
     perl6 -e '.say for lines' /path/to/file.txt
 
-Just like `$_` is the default variable, methods called on the default variable can omit the variable referece. They become default methods. So `$_.say` becomes `.say`. This brevity pays off with one liners - it's less typing!
+Just like `$_` is the default variable, methods called on the default variable can omit the variable reference. They become default methods. So `$_.say` becomes `.say`. This brevity pays off with one liners - it's less typing!
 
 The `-n` option changes the behavior of the program: it executes the code once for every line of the file. So uppercase and print every line of `/path/to/file.txt` you can type:
 
@@ -124,7 +124,7 @@ The final thing you should know is how to load a module. This is really powerful
 
 This: `-M URI::Encode` loads the URI::Encode module, which exports the `encode_uri` subroutine. You can use `-M` more than once if you want to load more than one module:
 
-    perl6 -M URI::Encode -M URI e- '<your code here>'
+    perl6 -M URI::Encode -M URI -e '<your code here>'
 
 What if you have a local module, that is not installed yet? Easy, just pass use the `-I` switch to include the directory:
 
@@ -262,7 +262,7 @@ Print the total number of lines that match a pattern
 
 Print the number PI to n decimal places (e.g. 10)
 
-    perl6 -e 'say pi.fmt("%.10f");
+    perl6 -e 'say pi.fmt("%.10f");'
 
 Print the number PI to 15 decimal places
 
@@ -270,7 +270,7 @@ Print the number PI to 15 decimal places
 
 Print the number E to n decimal places (e.g. 10)
 
-    perl6 -e 'say e.fmt("%.10f");
+    perl6 -e 'say e.fmt("%.10f");'
 
 Print the number E to 15 decimal places
 
@@ -502,7 +502,7 @@ Print occurrence counts of n-grams
 
     perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Bag.sort.join("\n")'
 
-Print occurence counts of words (1-grams)
+Print occurrence counts of words (1-grams)
 
     perl6 -e 'say lines[0].words.map({[~] @$_}).Bag.sort.join("\n")' example.txt
 
@@ -631,7 +631,7 @@ Print the first field (word) of every line (emulate cut -f 1 -d ' ')
 DATA TRANSFORMATION WITH PIPES
 ------------------------------
 
-Perl 6 progams integrate straight into the command line. You can pipe data in-to and out-of a one liner by using the pipe `|` character. For piping data in, Perl 6 automatically sets STDIN to `$*IN`. Just like with files, data piped in can be looped through using `-n` and is also available in `lines`. To pipe data out of a one liner just use `print` or `say`.
+Perl 6 programs integrate straight into the command line. You can pipe data in-to and out-of a one liner by using the pipe `|` character. For piping data in, Perl 6 automatically sets STDIN to `$*IN`. Just like with files, data piped in can be looped through using `-n` and is also available in `lines`. To pipe data out of a one liner just use `print` or `say`.
 
 JSON-encode a list of all files in the current directory
 
@@ -654,7 +654,7 @@ WWW
 
 Download a webpage
 
-    perl6 -M HTTP::UserAgent -e 'say HTTP::UserAgent.new.get("google.com").content
+    perl6 -M HTTP::UserAgent -e 'say HTTP::UserAgent.new.get("google.com").content'
 
 Download a webpage and strip out the HTML
 
