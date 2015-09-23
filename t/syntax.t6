@@ -1,3 +1,4 @@
+#!/usr/bin/env perl6
 use Test;
 plan 140;
 is qq:x{perl6 -ce 'say "Hello, World!"'}, "Syntax OK\n";
@@ -15,7 +16,7 @@ is q:x{perl6 -ce 'say lines.elems' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce 'say lines.Int' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce 'lines.Int.say' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce 'lines.grep(/\S/).elems.say' example.txt}, "Syntax OK\n";
-is q:x{perl6 -ce 'lines.grep(/\s/).elems.say' example.txt}, "Syntax OK\n";
+is q:x{perl6 -ce 'lines.grep(/^\s*$/).elems.say' example.txt}, "Syntax OK\n";
 is q:x{perl6 -ce 'say "7 is prime" if 7.Int.is-prime'}, "Syntax OK\n";
 is q:x{perl6 -ce 'say [+] .split("\t")'}, "Syntax OK\n";
 is q:x{perl6 -ce 'say [+] lines.split("\t")'}, "Syntax OK\n";
@@ -142,4 +143,3 @@ is q:x{perl6 -M HTTP::UserAgent -ce 'say HTTP::UserAgent.new.get("google.com").c
 is q:x{perl6 -M HTTP::Server::Simple -ce 'HTTP::Server::Simple.new.run'}, "Syntax OK\n";
 is q:x{perl6 -ce '.comb(/\w\w/).map({:16($_)}).say'}, "Syntax OK\n";
 is q:x{perl6 -ce '.comb(/\w\w/).map({:16($_)}).say'}, "Syntax OK\n";
-
