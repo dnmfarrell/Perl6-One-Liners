@@ -27,6 +27,7 @@ CONTRIBUTORS
 
 * Alexander Moquin
 * Bruce Gray
+* David H. Adler
 * FROGGS
 * Helmut Wollmersdorfer
 * japhb
@@ -194,7 +195,7 @@ Print the number of non-empty lines in a file
 
 Print the number of empty lines in a file
 
-    perl6 -e 'lines.grep(/\s/).elems.say' example.txt
+    perl6 -e 'lines.grep(/^\s*$/).elems.say' example.txt
 
 
 CALCULATIONS
