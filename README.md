@@ -27,6 +27,7 @@ CONTRIBUTORS
 
 * Alexander Moquin
 * Bruce Gray
+* Carl Mäsak
 * David H. Adler
 * FROGGS
 * Helmut Wollmersdorfer
@@ -203,7 +204,7 @@ CALCULATIONS
 
 Check if a number is a prime
 
-    perl6 -e 'say "7 is prime" if 7.Int.is-prime'
+    perl6 -e 'say "7 is prime" if 7.is-prime'
 
 Print the sum of all the fields on a line
 
@@ -217,21 +218,29 @@ Shuffle all fields on a line
 
     perl6 -ne '.split("\t").pick(*).join("\t").say'
 
-Find the minimum element on a line
+Find the lexically minimum element on a line
 
     perl6 -ne '.split("\t").min.say'
 
-Find the minimum element over all the lines
+Find the lexically minimum element over all the lines
 
     perl6 -e 'lines.split("\t").min.say'
 
-Find the maximum element on a line
+Find the lexically maximum element on a line
 
     perl6 -ne '.split("\t").max.say'
 
-Find the maximum element over all the lines
+Find the lexically maximum element over all the lines
 
     perl6 -e 'lines.split("\t").max.say'
+
+Find the numerically minimum element on a line
+
+    perl6 -ne '.split("\t")».Numeric.min.say'
+
+Find the numerically  maximum element on a line
+
+    perl6 -ne '.split("\t")».Numeric.max.say'
 
 Replace each field with its absolute value
 
@@ -697,7 +706,7 @@ In this case we want to interpolate `\n` as a newline and not literally add a ba
 
     perl6 -e 'say "Hello, World!"'
 
-Can be written as:
+On Windows can be written as:
 
     perl6 -e "say 'hello, World!'"
 
