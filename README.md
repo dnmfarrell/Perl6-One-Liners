@@ -322,7 +322,7 @@ Calculate greatest common divisor
 
     perl6 -e 'say [gcd] @list_of_numbers'
 
-Calculate GCM of numbers 20 and 35 using Euclid's algorithm
+Calculate GCD of numbers 20 and 35 using Euclid's algorithm
 
     perl6 -e 'say (20, 35, *%* ... 0)[*-2]'
 
