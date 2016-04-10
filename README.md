@@ -659,7 +659,7 @@ Color conversion, HTML to RGB
 
 Color conversion, RGB to HTML
 
-    echo "#ffff00" | perl6 -ne '.comb(/\w\w/).map({:16($_)}).say'
+    echo "(255 255 0)" | perl6 -ne 'my $out = "#"; for m:g/\d+/ -> $d { $out ~= sprintf("%02x", $d.Int);}; say $out;'
 
 WWW
 ---
