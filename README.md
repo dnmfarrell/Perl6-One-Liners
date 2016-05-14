@@ -124,9 +124,9 @@ The `-n` and `-p` options are really useful. There are lots of example one-liner
 
 The final thing you should know is how to load a module. This is really powerful as you can extend Perl 6's capabilities by importing external libraries. The `-M` switch stands for load module:
 
-    perl6 -M URI::Encode -e 'say encode_uri("example.com/10 ways to crush it with Perl 6")'
+    perl6 -M URI::Encode -e 'say uri_encode("example.com/10 ways to crush it with Perl 6")'
 
-This: `-M URI::Encode` loads the URI::Encode module, which exports the `encode_uri` subroutine. You can use `-M` more than once if you want to load more than one module:
+This: `-M URI::Encode` loads the URI::Encode module, which exports the `uri_encode` subroutine. You can use `-M` more than once if you want to load more than one module:
 
     perl6 -M URI::Encode -M URI -e '<your code here>'
 
