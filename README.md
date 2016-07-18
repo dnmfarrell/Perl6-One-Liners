@@ -174,7 +174,7 @@ LINE NUMBERING
 Number all lines in a file
 
     perl6 -ne 'say "{++$} $_"' example.txt
-    perl6 -ne 'say $*ARGFILES.ins ~ " $_"' example.txt
+    perl6 -ne 'say $*ARGFILES.lines.kv ~ " $_"' example.txt
 
 Number only non-empty lines in a file
 
@@ -182,7 +182,7 @@ Number only non-empty lines in a file
 
 Number all lines but print line numbers only for non-empty lines
 
-    perl6 -pe '$_ = $*ARGFILES.ins ~ " $_" if /\S/' example.txt
+    perl6 -pe '$_ = $*ARGFILES.lines.kv ~ " $_" if /\S/' example.txt
 
 Print the total number of lines in a file (emulate wc -l)
 
