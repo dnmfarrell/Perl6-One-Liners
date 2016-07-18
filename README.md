@@ -619,13 +619,13 @@ Find all lines that contain only a number
     perl6 -ne '/^\d+$/ && .say' example.txt
     perl6 -pe 'next if ! $_.match(/^\d+$/)' example.txt
 
-Print every odd line
-
-    perl6 -ne '.say if ++$ % 2' example.txt
-
 Print every even line
 
-    perl6 -ne '.say if ! (++$ % 2)' example.txt
+    perl6 -ne '.say if ++$ %% 2' example.txt
+
+Print every odd line
+
+    perl6 -ne '.say if ++$ !%% 2' example.txt
 
 Print all lines that repeat
 
