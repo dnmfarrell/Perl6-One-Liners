@@ -504,19 +504,19 @@ TEXT ANALYSIS
 
 Print n-grams of a string
 
-    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_})'
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1)>>.join()'
 
 Print unique n-grams
 
-    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Set.sort'
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1)>>.join().Set.sort'
 
 Print occurrence counts of n-grams
 
-    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1).map({[~] @$_}).Bag.sort.join("\n")'
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1)>>.join().Bag.sort.join("\n")'
 
 Print occurrence counts of words (1-grams)
 
-    perl6 -e 'say lines[0].words.map({[~] @$_}).Bag.sort.join("\n")' example.txt
+    perl6 -e 'say lines[0].words.join().Bag.sort.join("\n")' example.txt
 
 Print Dice similarity coefficient based on sets of 1-grams
 
