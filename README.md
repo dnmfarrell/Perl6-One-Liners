@@ -393,7 +393,7 @@ Generate a random 15 ASCII Character password
 
 Create a string of specific length
 
-    perl6 -e 'print "a" x 50'
+    perl6 -e 'say "a" x 50'
 
 Generate and print an array of even numbers from 1 to 100
 
