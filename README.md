@@ -451,7 +451,7 @@ Convert all text to lowercase
 
 Uppercase only the first word of each line
 
-    perl6 -ne 'say s/(\w+){}/{$0.uc}/' example.txt
+    perl6 -pe 's/(\w+){}/{$0.uc}/' example.txt
 
 Invert the letter case
 
