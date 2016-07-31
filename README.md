@@ -388,8 +388,8 @@ Generate a random 10 a-z character string
 
 Generate a random 15 ASCII Character password
 
-    perl6 -e 'print roll 15, "0".."z"'
-    perl6 -e 'print roll "0".."z": 15'
+    perl6 -e 'say roll(15, "0".."z").join("")'
+    perl6 -e 'say roll("0".."z": 15).join("")'
 
 Create a string of specific length
 
