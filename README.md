@@ -504,15 +504,15 @@ TEXT ANALYSIS
 
 Print n-grams of a string
 
-    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1)>>.join()'
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n => 1 - $n)».join()'
 
 Print unique n-grams
 
-    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1)>>.join().Set.sort'
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n => 1 - $n)».join().Set.sort'
 
 Print occurrence counts of n-grams
 
-    perl6 -e 'my $n=2; say "banana".comb.rotor($n,$n-1)>>.join().Bag.sort.join("\n")'
+    perl6 -e 'my $n=2; say "banana".comb.rotor($n => 1 - $n)».join().Bag.sort.join("\n")'
 
 Print occurrence counts of words (1-grams)
 
