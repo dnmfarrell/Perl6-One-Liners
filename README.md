@@ -27,12 +27,15 @@ CONTRIBUTORS
 
 * Alexander Moquin
 * Bruce Gray
+* Cale
 * Carl Mäsak
 * David H. Adler
 * FROGGS
 * Helmut Wollmersdorfer
+* Hugh Simpson
 * japhb
 * Larry Wall
+* Mathieu Gagnon
 * Matt Oates
 * Moritz Lenz
 * Mouq
