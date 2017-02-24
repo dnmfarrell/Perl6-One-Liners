@@ -391,12 +391,12 @@ Generate a random 10 a-z character string
 
 Generate a random 15 ASCII Character password
 
-    perl6 -e 'print roll 15, "0".."z"'
-    perl6 -e 'print roll "0".."z": 15'
+    perl6 -e 'say roll(15, "0".."z").join("")'
+    perl6 -e 'say roll("0".."z": 15).join("")'
 
 Create a string of specific length
 
-    perl6 -e 'print "a" x 50'
+    perl6 -e 'say "a" x 50'
 
 Generate and print an array of even numbers from 1 to 100
 
@@ -454,7 +454,7 @@ Convert all text to lowercase
 
 Uppercase only the first word of each line
 
-    perl6 -ne 'say s/(\w+){}/{$0.uc}/' example.txt
+    perl6 -pe 's/(\w+){}/{$0.uc}/' example.txt
 
 Invert the letter case
 
