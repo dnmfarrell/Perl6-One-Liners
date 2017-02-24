@@ -211,43 +211,43 @@ Check if a number is a prime
 
 Print the sum of all the fields on a line
 
-    perl6 -ne 'say [+] .split("\t")'
+    perl6 -ne 'say [+] .split("\t")' example.txt
 
 Print the sum of all the fields on all lines
 
-    perl6 -e 'say [+] lines.split("\t")'
+    perl6 -e 'say [+] lines.split("\t")' example.txt
 
 Shuffle all fields on a line
 
-    perl6 -ne '.split("\t").pick(*).join("\t").say'
+    perl6 -ne '.split("\t").pick(*).join("\t").say' example.txt
 
 Find the lexically minimum element on a line
 
-    perl6 -ne '.split("\t").min.say'
+    perl6 -ne '.split("\t").min.say' example.txt
 
 Find the lexically minimum element over all the lines
 
-    perl6 -e 'lines.split("\t").min.say'
+    perl6 -e 'lines.split("\t").min.say' example.txt
 
 Find the lexically maximum element on a line
 
-    perl6 -ne '.split("\t").max.say'
+    perl6 -ne '.split("\t").max.say' example.txt
 
 Find the lexically maximum element over all the lines
 
-    perl6 -e 'lines.split("\t").max.say'
+    perl6 -e 'lines.split("\t").max.say' example.txt
 
 Find the numerically minimum element on a line
 
-    perl6 -ne '.split("\t")».Numeric.min.say'
+    perl6 -ne '.split("\t")».Numeric.min.say' example.txt
 
 Find the numerically  maximum element on a line
 
-    perl6 -ne '.split("\t")».Numeric.max.say'
+    perl6 -ne '.split("\t")».Numeric.max.say' example.txt
 
 Replace each field with its absolute value
 
-    perl6 -ne '.split("\t").map(*.abs).join("\t").say'
+    perl6 -ne '.split("\t").map(*.abs).join("\t").say' example.txt
 
 Find the total number of letters on each line
 
@@ -263,17 +263,17 @@ Find the total number of elements on each line, split on a comma
 
 Find the total number of fields (words) on all lines
 
-    perl6 -e 'say lines.split("\t").elems' #fields
+    perl6 -e 'say lines.split("\t").elems' example.txt #fields
     perl6 -e 'say lines.words.elems' example.txt #words
 
 Print the total number of fields that match a pattern
 
-    perl6 -e 'say lines.split("\t").comb(/pattern/).elems' #fields
-    perl6 -e 'say lines.words.comb(/pattern/).elems' #words
+    perl6 -e 'say lines.split("\t").comb(/pattern/).elems' example.txt #fields
+    perl6 -e 'say lines.words.comb(/pattern/).elems' example.txt #words
 
 Print the total number of lines that match a pattern
 
-    perl6 -e 'say lines.grep(/in/).elems'
+    perl6 -e 'say lines.grep(/in/).elems' example.txt
 
 Print the number PI to n decimal places (e.g. 10)
 
@@ -325,7 +325,7 @@ Calculate greatest common divisor
 
     perl6 -e 'say [gcd] @list_of_numbers'
 
-Calculate GCM of numbers 20 and 35 using Euclid's algorithm
+Calculate GCD of numbers 20 and 35 using Euclid's algorithm
 
     perl6 -e 'say (20, 35, *%* ... 0)[*-2]'
 
@@ -662,7 +662,7 @@ Color conversion, HTML to RGB
 
 Color conversion, RGB to HTML
 
-    echo "#ffff00" | perl6 -ne '.comb(/\w\w/).map({:16($_)}).say'
+    echo "(255 255 0)" | perl6 -ne 'my $out = "#"; for m:g/\d+/ -> $d { $out ~= sprintf("%02x", $d.Int);}; say $out;'
 
 WWW
 ---
